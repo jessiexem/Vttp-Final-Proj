@@ -1,0 +1,23 @@
+<mat-card>
+    <div *ngFor="let p of posts">
+        <div>
+            <span>
+                <span>List of tags</span>
+                <span>Posted by: {{post.username}}</span>
+            </span>
+            <div>
+                <div>
+                    Post Name
+                </div>
+                <div>
+                    Post description
+                </div>
+                <hr>
+                <span>
+                    Comments (3)
+                </span>
+                <button mat-raised-button color="primary" style="margin-right:5px; margin-bottom:5px; margin-top:5px;" type="submit">Sign up</button>
+            </div>
+        </div>
+    </div>
+</mat-card>
