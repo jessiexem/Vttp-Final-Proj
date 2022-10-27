@@ -18,7 +18,20 @@ public class CORSConfig implements WebMvcConfigurer {
         corsRegistry
                 .addMapping(path)
                 .allowedOrigins(origin)
-                .allowedHeaders("*");
-                //.allowCredentials(true);
+                .allowedMethods("*")
+                .maxAge(3600L)
+                .allowedHeaders("*")
+                .exposedHeaders("Authorization");
+
+
+        //model ans
+//                .allowCredentials(true);
+//                .addMapping("/**")
+//                .allowedOriginPatterns("*")
+//                .allowedMethods("*")
+//                .maxAge(3600L)
+//                .allowedHeaders("*")
+//                .exposedHeaders("Authorization")
+//                .allowCredentials(true);
     }
 }

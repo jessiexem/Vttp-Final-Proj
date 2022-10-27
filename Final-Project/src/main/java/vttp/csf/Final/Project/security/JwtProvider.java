@@ -1,5 +1,6 @@
 package vttp.csf.Final.Project.security;
 
+import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -18,7 +19,7 @@ public class JwtProvider {
     private Long jwtExpirationInMillis;
 
     @Autowired
-    JwtEncoder jwtEncoder;
+    private JwtEncoder jwtEncoder;
 
     public String generateToken(Authentication auth) {
         User principal = (User) auth.getPrincipal();

@@ -83,7 +83,7 @@ public class AuthService {
 
     public void verifyAccount(String token) {
         Optional<VerificationToken> opt = verificationTokenRepo.findByToken(token);
-        
+
         if (opt.isEmpty()) {
             throw new HomeworkNerdException("AuthSvc verifyAccount: Invalid token");
         }
@@ -95,7 +95,7 @@ public class AuthService {
         User user = verificationToken.getUser();
         user.setEnabled(true);
         boolean updated = userRepo.updateUser(user);
-
+//        return userRepo.updateUser(user);
         if (!updated) {
             throw new HomeworkNerdException("fetchUserAndEnable -- Unable to enable user");
         }
@@ -107,6 +107,7 @@ public class AuthService {
         //store authentication obj in security context --> look for Authentication Obj, if present, means user is logged in.
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String authToken = jwtProvider.generateToken(authentication);
+        System.out.println(">>>"+authToken);
 
         return AuthenticationResponse.builder()
                 .authenticationToken(authToken)
@@ -143,10 +144,8 @@ public class AuthService {
                 .build();
     }
 
-//    public boolean isLoggedIn() {
-//        Authentication loggedInUser = SecurityContextHolder
-//                .getContext().getAuthentication();
-//
-//
-//    }
+    public boolean isLoggedIn() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
+    }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { PostService } from '../auth/shared/post.service';
 import { Post } from '../models';
 
@@ -11,7 +12,10 @@ export class HomeComponent implements OnInit {
 
   posts!: Post[]
 
-  constructor(private postSvc: PostService) { 
+  ngOnInit(): void {
+  }
+
+  constructor(private postSvc: PostService, private router: Router) { 
     this.postSvc.getAllPosts()
     .then (
       result => {
@@ -27,7 +31,8 @@ export class HomeComponent implements OnInit {
     )
   }
 
-  ngOnInit(): void {
+  goToPost(id: number): void {
+    this.router.navigateByUrl('/view-post/' + id);
   }
 
 }

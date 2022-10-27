@@ -16,12 +16,20 @@ import { ToastrModule } from 'ngx-toastr';
 import { TokenInterceptor } from './token-interceptor';
 import { HomeComponent } from './home/home.component';
 import { PostService } from './auth/shared/post.service';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { ViewPostComponent } from './post/view-post.component';
+import { CommentService } from './comment/comment.service';
+//import { VoteButtonComponent } from './shared/vote-button/vote-button.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { VoteService } from './shared/vote-button/vote.service';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
+  { path: 'view-post/:id', component: ViewPostComponent },
   { path: '**', redirectTo: '/',pathMatch: 'full'}
 ]
 
@@ -31,7 +39,8 @@ const appRoutes: Routes = [
     HeaderComponent,
     LoginComponent,
     SignupComponent,  
-    HomeComponent
+    HomeComponent, SidebarComponent, ViewPostComponent
+    // , VoteButtonComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule, 
@@ -39,9 +48,11 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes, { useHash: true}),
     NgxWebstorageModule.forRoot(),
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    FontAwesomeModule,
+    EditorModule
   ],
-  providers: [AuthService, PostService,
+  providers: [AuthService, PostService, CommentService, VoteService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

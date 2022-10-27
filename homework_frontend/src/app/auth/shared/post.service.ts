@@ -4,6 +4,7 @@ import { firstValueFrom } from "rxjs";
 import { Post } from "src/app/models";
 
 const URL_GET_ALL_POSTS = "http://localhost:8080/api/posts/"
+const URL_GET_POST_BY_ID = "http://localhost:8080/api/posts/"
 
 @Injectable()
 export class PostService {
@@ -13,6 +14,12 @@ export class PostService {
     getAllPosts() {
         return firstValueFrom(
             this.http.get<Post[]>(URL_GET_ALL_POSTS)
+        )
+    }
+
+    getPostById(pid : number) {
+        return firstValueFrom(
+            this.http.get<Post>(URL_GET_POST_BY_ID+pid)
         )
     }
 }

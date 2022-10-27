@@ -1,7 +1,9 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { outputAst } from "@angular/compiler";
+import { Injectable, Output } from "@angular/core";
+import { Router } from "@angular/router";
 import { LocalStorageService } from "ngx-webstorage";
-import { firstValueFrom, map, tap } from "rxjs";
+import { firstValueFrom, map, Subject, tap } from "rxjs";
 import { LoginRequest, LoginResponse, SignupRequest } from "src/app/models";
 
 const URL_SIGNUP = "http://localhost:8080/api/auth/signup"
@@ -11,14 +13,20 @@ const URL_GENERATE_NEW_TOKEN_W_REFRESH_TOKEN = "http://localhost:8080/api/auth/r
 @Injectable()
 export class AuthService {
 
+    @Output()
+    onLoggedIn = new Subject<boolean>()
 
-    constructor(private http: HttpClient, private localStorage: LocalStorageService) {}
+    @Output()
+    username = new Subject<string>()
+
+    refreshTokenPayload = {
+        refreshToken: this.getRefreshToken(),
+        username: this.getUserName()
+    }
+
+    constructor(private http: HttpClient, private localStorage: LocalStorageService, private router: Router) {}
 
    signup(signupRequest : SignupRequest) {
-
-    // const headers = new HttpHeaders()
-    // .set('Content-Type', 'application/json')
-    // .set('Accept','application/json')
 
     return firstValueFrom(
         this.http.post<any>(URL_SIGNUP, signupRequest, { responseType: 'text' as 'json'})
@@ -36,7 +44,9 @@ export class AuthService {
                     this.localStorage.store('username', data.username)
                     this.localStorage.store('refreshToken', data.refreshToken)
                     this.localStorage.store('expiresAt', data.expiresAt)
-
+                    
+                    this.onLoggedIn.next(true)
+                    this.username.next(data.username)
                     return true
                 })
             )
@@ -59,6 +69,10 @@ export class AuthService {
         return this.localStorage.retrieve('expiresAt');
     }
 
+    isLoggedIn(): boolean {
+        return this.getJwtToken() != null;
+    }
+
     refreshToken() {
         const refreshTokenPayload = {
             refreshToken: this.getRefreshToken(),
@@ -73,5 +87,24 @@ export class AuthService {
             }
         ))
     }
+
+    logout() {
+        this.http.post('http://localhost:8080/api/auth/logout', this.refreshTokenPayload)
+        .pipe(
+            map(
+                data => {
+                    console.log(data)
+                }
+            )
+        )
+
+        this.localStorage.clear('authenticationToken');
+        this.localStorage.clear('username');
+        this.localStorage.clear('refreshToken');
+        this.localStorage.clear('expiresAt');
+
+        // this.router.navigate(['/login'])
+        
+      }
 
 }

@@ -6,18 +6,29 @@
       <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
         <mat-icon>menu</mat-icon>
       </button> -->
-      <!-- <div *ngIf="!isLoggedIn"> -->
-    <button mat-button [matMenuTriggerFor]="menu">
-        <mat-icon>menu</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item [routerLink]="['/signup']"> Sign up </button>
-        <button mat-menu-item [routerLink]="['/login']"> Login </button>
-    </mat-menu>
-    <!-- </div> -->
+    <div *ngIf="!isLoggedIn">
+        <button mat-button [matMenuTriggerFor]="menu">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item [routerLink]="['/signup']"> Sign up </button>
+            <button mat-menu-item [routerLink]="['/login']"> Login </button>
+        </mat-menu>
+    </div>
     <!-- <mat-nav-list> -->
         <!-- <a routerLink="/sign-up" class="float-right sign-up mr-2"> Sign up </a>
         <a routerLink="/login" class="float-right login mr-2"> Login </a> -->
     <!-- </mat-nav-list> -->
+
+    <div *ngIf="isLoggedIn">
+      <button mat-button [matMenuTriggerFor]="menu">
+          <mat-icon>person</mat-icon>
+          {{username}}
+      </button>
+      <mat-menu #menu="matMenu">
+          <!-- <button mat-menu-item [routerLink]="['/signup']"> Profile </button> -->
+          <button mat-menu-item (click)="logout()"> Logout </button>
+      </mat-menu>
+  </div>
     </mat-toolbar>
   </p>

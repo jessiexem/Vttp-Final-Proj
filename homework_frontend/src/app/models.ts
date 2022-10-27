@@ -22,4 +22,36 @@ export interface Post {
     description: string;
     userName: string;
     commentCount: number;
+    tags: string[];
+}
+
+export interface CreatePosttPayload{
+    postName: string;
+    description: string;
+    tags: string[];
+}
+
+export interface Comment {
+    id: number;
+    postId: number;
+    createdDate : Date;
+    text: string;
+    username: string;
+    voteCount: number
+}
+
+export enum VoteType {
+    UPVOTE = 'UPVOTE',
+    DOWNVOTE = 'DOWNVOTE'
+}
+
+export interface VotePayload {
+    voteType: VoteType;
+    commentId: number;
+}
+
+export interface CommentPayload{
+    text: string;
+    postId: number;
+    username: string;
 }

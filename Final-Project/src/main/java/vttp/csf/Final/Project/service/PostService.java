@@ -59,6 +59,7 @@ public class PostService {
                     postList.stream()
                             .map(p -> postMapper.mapPostToDto(p))
                             .collect(Collectors.toList());
+
             return postResponseList;
         }
     }

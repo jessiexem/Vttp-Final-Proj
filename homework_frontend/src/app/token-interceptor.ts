@@ -19,7 +19,7 @@ export class TokenInterceptor implements HttpInterceptor {
            const cloned = this.addToken(req, jwtToken)
            return next.handle(cloned)
         }
-        const hello  = "jose"
+
         return next.handle(req).pipe(catchError (error => {
             if (error instanceof HttpErrorResponse && error.status === 403) {
                 return this.handleAuthErrors(req, next)
@@ -49,7 +49,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
     addToken(req: HttpRequest<any>, jwtToken: string): HttpRequest<any> {
         return req.clone({
-            headers: req.headers.set("Authorization", "Bearer" + jwtToken)
+            headers: req.headers.set("Authorization", "Bearer " + jwtToken)
         })
     }
 

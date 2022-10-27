@@ -34,6 +34,7 @@ public abstract class PostMapper {
 
     @Mapping(target = "id", source = "post.postId")
     @Mapping(target = "userName", source = "post.user.username")
+    @Mapping(target = "tags", source = "post.tags")
     @Mapping(target = "commentCount", expression = "java(commentCount(post))")
     public abstract PostResponse mapPostToDto (Post post);
 
