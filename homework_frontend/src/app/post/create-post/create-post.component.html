@@ -1,0 +1,44 @@
+<mat-card>
+  <mat-card-title>Create Post</mat-card-title>
+  <mat-card-content>
+    <form class="post-form" [formGroup]="createPostForm" (ngSubmit)="createPost()">
+      <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput placeholder="Your post title" formControlName="postName">
+      </mat-form-field>
+      <br>
+      <mat-form-field class="example-chip-list" appearance="outline">
+        <mat-label>Related tags</mat-label>
+        <mat-chip-list #chipList required aria-label="Topic selection" formControlName="tags">
+          <mat-chip *ngFor="let t of tags" (removed)="remove(t)">
+            {{t.tag}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+          <input placeholder="Add tag..."
+                 [matChipInputFor]="chipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="add($event)"
+                >
+        </mat-chip-list>
+      </mat-form-field>
+        <editor apiKey="z8y1fgozr9q7feub6kp2tcbb05hsc18ff5flamhiq4fi6ryy" formControlName="description" [init]="{
+            height: 500,
+            menubar: false,
+            plugins: [
+              'advlist autolink lists link image charmap preview anchor pagebreak code table'
+            ],
+            toolbar:
+              'styles | h1 h2 h3 | undo redo | bold italic | alignleft aligncenter alignright alignjustify | help'}">
+        </editor>
+        <span>
+          <div style="margin-top: 5px" class="float-right">
+            <button (click)="discardPost()" class="btnDiscard" mat-raised-button color="warn">Discard</button>
+            <button class="btnCreatePost" mat-raised-button color="primary" [disabled]="tags.length === 0" >Post</button>
+          </div>
+        </span>
+    </form>
+  </mat-card-content>
+</mat-card>

@@ -58,8 +58,8 @@ public class PostRepository {
         else return Optional.of(Post.create(rs));
     }
 
-    public Optional<List<Post>> getAllPosts() {
-        final SqlRowSet rs = template.queryForRowSet(SQL_SELECT_ALL_POSTS);
+    public Optional<List<Post>> getAllPosts(String searchTerm) {
+        final SqlRowSet rs = template.queryForRowSet(SQL_SELECT_ALL_POSTS, searchTerm, searchTerm, searchTerm);
         if (!rs.isBeforeFirst()) {
             logger.warning(">>>> PostRepository: getAllPosts: no data found");
             return Optional.empty();

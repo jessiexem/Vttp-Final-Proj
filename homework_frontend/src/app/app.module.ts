@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/header.component';
+// import { HeaderComponent } from './components/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
@@ -23,6 +23,11 @@ import { CommentService } from './comment/comment.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { VoteService } from './shared/vote-button/vote.service';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { CreatePostComponent } from './post/create-post/create-post.component';
+import { QuizWelcomeComponent } from './quiz/quiz-welcome.component';
+import { QuizService } from './quiz/quiz.service';
+import { QuestionDisplayComponent } from './quiz/question-display.component';
+import { ChangeBgDirective } from './change-bg.directive';
 
 
 const appRoutes: Routes = [
@@ -30,16 +35,25 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'view-post/:id', component: ViewPostComponent },
+  { path: 'create-post', component: CreatePostComponent },
+  { path: 'quizHome', component: QuizWelcomeComponent },
+  { path: 'question', component: QuestionDisplayComponent },
   { path: '**', redirectTo: '/',pathMatch: 'full'}
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
+    // HeaderComponent,
     LoginComponent,
     SignupComponent,  
-    HomeComponent, SidebarComponent, ViewPostComponent
+    HomeComponent, 
+    SidebarComponent, 
+    ViewPostComponent, 
+    CreatePostComponent, 
+    QuizWelcomeComponent, 
+    QuestionDisplayComponent, 
+    ChangeBgDirective
     // , VoteButtonComponent
   ],
   imports: [
@@ -52,7 +66,7 @@ const appRoutes: Routes = [
     FontAwesomeModule,
     EditorModule
   ],
-  providers: [AuthService, PostService, CommentService, VoteService,
+  providers: [AuthService, PostService, CommentService, VoteService, QuizService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

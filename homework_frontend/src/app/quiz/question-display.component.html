@@ -1,0 +1,90 @@
+<div class="container" *ngIf="!quizList">
+    <mat-card>
+        <mat-card-content>
+            <p><em>Sorry, there are currently no questions for this category and difficulty level. Please choose another quiz.</em></p>
+            <button mat-raised-button color="primary" [routerLink]="['/quizHome']">Choose Another Quiz</button>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+<div class="container" *ngIf="quizList">
+<mat-card>
+    <div class="card">
+        <div class="header">
+            <div class="image">
+                <img src="https://img.freepik.com/premium-vector/quiz-comic-pop-art-style_175838-505.jpg?w=1060" width="90" alt="logo">
+            </div>
+            
+            <div class="quiz-header">
+                <h4 style="font-family: cursive;">Quiz Category : {{quizList[currentQuestion]?.category}}</h4>
+                <span style="font-style: italic;">Welcome {{name}}</span>
+            </div>
+        </div>
+        <hr>
+
+        <ng-container *ngIf="currentQuestion <= 9">
+            <div class="space-between">
+                <div class="score">
+                    <h5>{{points}} Points</h5>
+                </div>
+                <div class="question-remain">
+                    <span style="font-style: italic;">Question {{currentQuestion+1}} of 10</span>
+                </div>
+                <div class="timer">
+                    <h5>{{counter}} sec ⏱</h5>
+                </div>
+            </div>
+            <div class="progress mb-3">
+                <!-- <span>{{progress}}</span> -->
+                <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+                <!-- <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar> -->
+            </div>
+            <br>
+            <div class="question">
+                <div class="card">
+                    <h3>{{quizList[currentQuestion]?.question}}</h3>
+                </div>
+            </div> 
+            <ng-container class="options">
+                <mat-list *ngFor="let option of quizList[currentQuestion]?.optionsArray; let i = index;">
+                    <div class="optionBox" (click)="answer(currentQuestion+1,i)">
+                    <mat-list-item appChangeBg [isCorrect]="quizList[currentQuestion]?.answerArray[i] === 'true' ">
+                        <div class="option">
+                        <!-- <div appChangeBg [isCorrect]="option.correct" class="card"> -->
+                            {{option}}
+                        </div>
+                    </mat-list-item>
+                </div>
+                </mat-list>
+            </ng-container>
+            <br>
+            <div class="space-between">
+                <div></div>
+                <!-- <button mat-raised-button [disabled]="currentQuestion===0" class="btn" (click)="previousQuestion()">
+                    <mat-icon>arrow_back_ios</mat-icon>
+                </button> -->
+                <!-- <button mat-raised-button class="btn" (click)="resetQuiz()">
+                    <mat-icon>restart_alt</mat-icon>
+                </button> -->
+                <button mat-raised-button [disabled]="currentQuestion===10" class="btn" (click)="nextQuestion()">
+                    <mat-icon>arrow_forward_ios</mat-icon>
+                </button>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="currentQuestion==10">
+            <div class="row d-flex justify-content-between">
+                <img style="width: 50%;" class="img-fluid col-sm-12 mx-auto" src="https://icon-library.com/images/celebration-icon-png/celebration-icon-png-7.jpg" alt="">
+                <div class="result text-center col-md-6 col-sm-12">
+                    <h3>Congratulations!! <br>You have completed the quiz. <br>Below is your result:</h3>
+                    <p>Total Questions: {{quizList.length}}</p>
+                    <p>Total Questions Attempted : {{correctAnswer+inCorrectAnswer}} </p>
+                    <p>Total Correct Answered : {{correctAnswer}} </p>
+                    <p>Total Wrong Answered : {{inCorrectAnswer}} </p>
+                    <p>Your Score : {{points}} Points </p>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    </mat-card>
+</div>

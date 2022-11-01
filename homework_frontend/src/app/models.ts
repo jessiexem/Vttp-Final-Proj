@@ -22,10 +22,14 @@ export interface Post {
     description: string;
     userName: string;
     commentCount: number;
-    tags: string[];
+    tags: Tag[];
 }
 
-export interface CreatePosttPayload{
+export interface Tag {
+    tag: string
+}
+
+export interface CreatePostPayload{
     postName: string;
     description: string;
     tags: string[];
@@ -54,4 +58,17 @@ export interface CommentPayload{
     text: string;
     postId: number;
     username: string;
+}
+
+export interface QuizRequest {
+    category: string;
+    difficulty: string;
+}
+
+export interface Quiz {
+    question: string;
+    category: string;
+    optionsArray: string[];
+    answerArray: string[];
+    explanation: string;
 }

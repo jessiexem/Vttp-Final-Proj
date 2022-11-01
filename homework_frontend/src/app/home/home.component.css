@@ -1,3 +1,10 @@
+.ancestor {
+    display: flex;
+    flex-direction: row;   
+    width: 100% auto;
+    border: 0 auto;
+}
+
 .post{
     --post-line-color: #ccc;    
     border: 1px solid #ccc;
@@ -20,7 +27,13 @@
     color: black;
 }
 
-/* mat-card {
-    width: calc(100% - 70px);
-    height: calc(100% - 70px);
-} */
+.display-post {
+    height:800px;
+    overflow-y: scroll;
+    width: 70%;
+    padding-left: 50px;
+}
+
+.left {
+    width: 30%;
+}

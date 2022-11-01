@@ -57,7 +57,7 @@ create table post (
 	pid int not null auto_increment,
     post_name varchar(64) not null,
 --     url varchar(64),
-    description varchar(128) not null,
+    description longtext not null,
 --     comment_count int,
     tags varchar(128),
     user_id int not null,

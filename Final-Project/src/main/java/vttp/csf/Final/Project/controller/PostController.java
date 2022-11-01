@@ -12,7 +12,7 @@ import vttp.csf.Final.Project.service.PostService;
 import java.util.List;
 
 @RestController
-@RequestMapping(path="/api/posts/")
+@RequestMapping(path="/api/posts")
 public class PostController {
 
     @Autowired
@@ -31,8 +31,11 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PostResponse>> getAllPosts() {
-        List<PostResponse> postResponseList = postSvc.getAllPosts();
+    public ResponseEntity<List<PostResponse>> getAllPosts(@RequestParam (required = false) String searchTerm) {
+        if (searchTerm == null) {
+            searchTerm = "";
+        }
+        List<PostResponse> postResponseList = postSvc.getAllPosts(searchTerm);
         return ResponseEntity.status(HttpStatus.OK).body(postResponseList);
     }
 

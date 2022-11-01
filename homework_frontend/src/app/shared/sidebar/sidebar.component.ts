@@ -14,6 +14,10 @@ export class SidebarComponent implements OnInit {
   }
 
   goToCreatePost() {
-    this.router.navigateByUrl('/create-post');
+    this.router.navigateByUrl('/create-post')
+  }
+
+  goToQuizHome() {
+    this.router.navigateByUrl('/quizHome')
   }
 }

@@ -1,2 +1,46 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
+<!-- <app-header></app-header>
+<router-outlet></router-outlet> -->
+
+<mat-toolbar color="primary">
+    <mat-icon (click)="toggleSidebar()">school</mat-icon><span> Homework Nerd</span>
+    <span class="example-spacer"></span>
+    <div *ngIf="!isLoggedIn">
+        <button mat-button [matMenuTriggerFor]="menu">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item [routerLink]="['/signup']"> Sign up </button>
+            <button mat-menu-item [routerLink]="['/login']"> Login </button>
+        </mat-menu>
+    </div>
+    <div *ngIf="isLoggedIn">
+        <button mat-button [matMenuTriggerFor]="menu">
+            <mat-icon>person</mat-icon>
+            {{username}}
+        </button>
+        <mat-menu #menu="matMenu">
+            <!-- <button mat-menu-item [routerLink]="['/signup']"> Profile </button> -->
+            <button mat-menu-item (click)="logout()"> Logout </button>
+        </mat-menu>
+    </div>
+</mat-toolbar>
+<mat-drawer-container autosize>
+<mat-drawer #myDrawer>
+    <mat-list>
+        <mat-list-item [routerLink]="['/']" (click)="myDrawer.toggle()">
+            Home
+        </mat-list-item>
+        <mat-list-item [routerLink]="['/create-post']" (click)="myDrawer.toggle()">
+            Create Post
+        </mat-list-item>
+        <mat-list-item [routerLink]="['/quizHome']" (click)="myDrawer.toggle()">
+            Quiz
+        </mat-list-item>
+    </mat-list>
+</mat-drawer>
+
+<div class="full-height">
+    <router-outlet></router-outlet>
+</div>
+</mat-drawer-container>
+  

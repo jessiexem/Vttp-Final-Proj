@@ -1,3 +1,10 @@
+.ancestor, .ancestor-comment {
+    display: flex;
+    flex-direction: row;   
+    width: 100% auto;
+    border: 0 auto;
+}
+
 .post{
     --post-line-color: #ccc;    
     border: 1px solid #ccc;
@@ -24,14 +31,11 @@
     --post-line-color: #ccc;    
     border: 1px solid #ccc;    
     margin-bottom: 10px;
-    overflow: hidden;
     background-color: rgba(255,255,255,0.8);
     color: black;
-    position: relative;
     border-radius: 4px;
     padding:5px;
-    width: calc(100% - 70px);
-    height: calc(100% - 70px);
+    width: 90%;
 }
 
 .header{
@@ -47,7 +51,13 @@
     text-align: center;
     flex-direction: column;
     justify-content: space-between;
-    font-size: 2em;    
+    font-size: 1em;
+    width: 10%; 
+}
+
+.vote-comment {
+    display: flex;
+    flex-direction: row;;
 }
 
 .commentForm {
@@ -55,10 +65,16 @@
     height: calc(100% - 70px);
 }
 
-.container .btn-holder {
-    display: inline-block;
-    vertical-align: middle;
+.btn-holder {
+    display: flex;
+    align-items: center;
 }
+
+.comment-box {
+    display: flex;
+    align-items: center;
+}
+
 
 .comment-holder {
     border: 1px solid #ccc;
@@ -70,4 +86,21 @@
     position: relative;
     border-radius: 4px;
     padding:10px;
+    width: 93%;
+}
+
+.comment-button {
+    display: flex;
+    flex-direction: row;;
+}
+
+.display-post {
+    height:1000px;
+    overflow-y: scroll;
+    width: 70%;
+    padding-left: 50px;
+}
+
+.left {
+    width: 30%;
 }

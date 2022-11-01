@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
     .catch(
       error => {
         console.error(">>>> performGetPosts error: ", error)
-        alert(`>>> performGetPosts error: ${JSON.stringify(error)}`)
+        //alert(`>>> performGetPosts error: ${JSON.stringify(error)}`)
       }
     )
   }

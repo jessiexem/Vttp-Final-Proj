@@ -1,25 +1,24 @@
-<mat-grid-list cols="7" rowHeight="10rem" >
-    <mat-grid-tile [colspan]="3" [rowspan]="5">
-        <app-sidebar></app-sidebar>
-    </mat-grid-tile>
-    <mat-grid-tile colspan="4" rowspan="2" *ngFor="let p of posts">
-        <!-- <mat-card class="post"> -->
+<div class="ancestor">
+    <div class="left">
+    <!-- <app-sidebar></app-sidebar> -->
+    </div>
+    <div class="display-post">
+          <div *ngFor="let p of posts">
             <div class="post">
                 <span>
                     <span *ngFor="let t of p.tags">
                         <span>
                             <button mat-stroked-button color="accent" style="margin-left:5px; margin-right:5px;" >{{t}}</button>
                         </span>
-                    </span>
+                    </span>                                
                     <span>Posted by: {{p.userName}}</span>
                 </span>
                 <hr>
                 <div>
                     <div>
                         <h2 class="post-title">{{p.postName}}</h2>
-                        <p>{{p.description}}</p>
+                        <p [innerHtml]="p.description"></p>
                     </div>
-                    <!-- <hr> -->
                     <span>
                         <mat-icon>question_answer</mat-icon>
                         Comments ({{p.commentCount}})
@@ -27,7 +26,6 @@
                     <button mat-raised-button color="primary" style="margin-left:5px; margin-bottom:5px; margin-top:5px;" type="submit" (click)="goToPost(p.id)">Read Post</button>
                 </div>
             </div>
-        <!-- </mat-card> -->
-    </mat-grid-tile>
-
-</mat-grid-list>
+        </div>
+    </div>
+</div>
