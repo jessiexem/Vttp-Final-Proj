@@ -1,14 +1,26 @@
 <div class="ancestor">
-    <div class="left">
-    <!-- <app-sidebar></app-sidebar> -->
+    <!-- <div class="left">
+    <app-sidebar></app-sidebar> 
+    </div> -->
+    <div class="searchBar">
+        <app-search-post (onSearchPost)="newSearchPost($event)"></app-search-post>
     </div>
-    <div class="display-post">
+    <div class="noResultsHolder" *ngIf="!posts">
+        <mat-card>
+            <mat-card-content>
+                <p><em>Sorry, we couldn't find any results for {{searchValue}}.</em></p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="display-post" *ngIf="posts">
+        <h2 *ngIf="searchValue">Results for <b>{{searchValue}}</b></h2>
           <div *ngFor="let p of posts">
             <div class="post">
                 <span>
                     <span *ngFor="let t of p.tags">
                         <span>
-                            <button mat-stroked-button color="accent" style="margin-left:5px; margin-right:5px;" >{{t}}</button>
+                            <button mat-stroked-button color="accent" style="margin-left:5px; margin-right:5px;" (click)="newSearchPost(t)">{{t}}</button>
                         </span>
                     </span>                                
                     <span>Posted by: {{p.userName}}</span>
@@ -18,6 +30,7 @@
                     <div>
                         <h2 class="post-title">{{p.postName}}</h2>
                         <p [innerHtml]="p.description"></p>
+                        <img [src]='"https://jgclass.sgp1.digitaloceanspaces.com/day38/" + p.imageUrl' alt="">
                     </div>
                     <span>
                         <mat-icon>question_answer</mat-icon>
@@ -27,5 +40,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="btn-holder">
+        <button mat-raised-button color="primary" style="float: right;" (click)="newSearchPost('')">Reset Search</button>
     </div>
 </div>

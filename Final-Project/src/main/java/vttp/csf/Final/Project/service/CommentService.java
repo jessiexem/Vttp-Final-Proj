@@ -1,6 +1,7 @@
 package vttp.csf.Final.Project.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Service;
 import vttp.csf.Final.Project.dto.CommentsDto;
 import vttp.csf.Final.Project.exception.HomeworkNerdException;
@@ -37,6 +38,9 @@ public class CommentService {
 
     @Autowired
     private MailService mailSvc;
+
+    @Autowired
+    private PostService postSvc;
 
     public void saveComment(CommentsDto commentsDto) {
         //check if post exists

@@ -21,6 +21,8 @@ public class Post {
     private String description;
     private User user;
     private Instant createdDate;
+//    private String tags;
+    private String imageUrl;
     private List<String> tags;
 //    private Topic topic;
 
@@ -32,8 +34,12 @@ public class Post {
         String tags = rs.getString("tags");
         List<String> tagList = new ArrayList<String>(Arrays.asList(tags.split(",")));
         post.setTags(tagList);
+//        post.setTags(rs.getString("tags"));
         //post.setCreatedDate(rs.getDate("p_created_date"));
         post.setCreatedDate(rs.getTimestamp("p_created_date").toInstant());
+        if (rs.getString("image_url") !=null) {
+            post.setImageUrl(rs.getString("image_url"));
+        }
         post.setUser(User.create(rs));
         return post;
     }

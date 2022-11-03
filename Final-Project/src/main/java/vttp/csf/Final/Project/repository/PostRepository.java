@@ -29,8 +29,8 @@ public class PostRepository {
     public Integer savePost(int user_id, PostRequest post) {
         logger.info("in PostRepo: savePost for userId:" + user_id);
 
-        List<String> tagList = post.getTags();
-        String tags = String.join(",", tagList);
+//        List<String> tagList = post.getTags();
+//        String tags = String.join(",", tagList);
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         template.update(conn -> {
@@ -39,8 +39,9 @@ public class PostRepository {
 
             ps.setString(1, post.getPostName());
             ps.setString(2, post.getDescription());
-            ps.setString(3, tags);
+            ps.setString(3, post.getTags());
             ps.setInt(4, user_id);
+            ps.setString(5,post.getImageUrl());
             return ps;
 
         }, keyHolder);

@@ -1,8 +1,9 @@
 .ancestor {
     display: flex;
-    flex-direction: row;   
+    flex-direction: column;   
     width: 100% auto;
     border: 0 auto;
+    /* justify-content: center; */
 }
 
 .post{
@@ -30,10 +31,30 @@
 .display-post {
     height:800px;
     overflow-y: scroll;
-    width: 70%;
+    /* width: 70%; */
     padding-left: 50px;
 }
 
 .left {
     width: 30%;
+}
+
+.searchBar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: lightgray; */
+}
+
+.noResultsHolder {
+  display: flex;
+  justify-content: center;
+}
+
+mat-card {
+    width: 70%
+}
+
+.btn-holder {
+    margin: 30px;
 }

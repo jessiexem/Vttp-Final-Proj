@@ -15,7 +15,9 @@ public class PostRequest {
     private Long postId;
     private String postName;
     private String description;
-    private List<String> tags;
+    private String tags;
+//    private List<String> tags;
+    private String imageUrl;
     //private String url;
 
 }

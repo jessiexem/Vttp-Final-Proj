@@ -1,10 +1,10 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { outputAst } from "@angular/compiler";
 import { Injectable, Output } from "@angular/core";
 import { Router } from "@angular/router";
 import { LocalStorageService } from "ngx-webstorage";
 import { firstValueFrom, map, Subject, tap } from "rxjs";
 import { LoginRequest, LoginResponse, SignupRequest } from "src/app/models";
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 const URL_SIGNUP = "http://localhost:8080/api/auth/signup"
 const URL_LOGIN = "http://localhost:8080/api/auth/login"
@@ -24,7 +24,7 @@ export class AuthService {
         username: this.getUserName()
     }
 
-    constructor(private http: HttpClient, private localStorage: LocalStorageService, private router: Router) {}
+    constructor(private http: HttpClient, private localStorage: LocalStorageService, private router: Router, public jwtHelper: JwtHelperService) {}
 
    signup(signupRequest : SignupRequest) {
 
@@ -105,6 +105,13 @@ export class AuthService {
 
         // this.router.navigate(['/login'])
         
+      }
+
+      public isAuthenticated(): boolean {
+        const token = this.localStorage.retrieve('authenticationToken')
+        // Check whether the token is expired and return
+        // true or false
+        return !this.jwtHelper.isTokenExpired(token);
       }
 
 }

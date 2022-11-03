@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Router } from '@angular/router';
@@ -13,6 +13,9 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./create-post.component.css']
 })
 export class CreatePostComponent implements OnInit {
+
+  @ViewChild('toUpload')
+  toUpload!: ElementRef
 
   addOnBlur = true;
   isEditorContentEmpty = true;
@@ -31,7 +34,8 @@ export class CreatePostComponent implements OnInit {
     return this.fb.group ({
       postName: this.fb.control<string>('', [Validators.required]),
       description: this.fb.control<string>('', [Validators.required]),
-      tags: this.fb.control<Tag[]>([], Validators.required)
+      tags: this.fb.control<Tag[]>([], Validators.required),
+      file: this.fb.control<any>('')
     })
   }
 
@@ -44,16 +48,24 @@ export class CreatePostComponent implements OnInit {
   }
 
   createPost() {
-    const payload = this.createPostForm.value as CreatePostPayload
-  
+    const postName = this.createPostForm.get('postName')?.value
+    const description = this.createPostForm.get('description')?.value
     const tagValues = this.tags.map((obj) => {
       return obj.tag;
     })
 
-    console.log(tagValues)
-    payload.tags = tagValues
+    const tags = String(tagValues)
+    //console.log("tagValues:", tagValues, "tags:",tags)
 
-    this.postService.createPost(payload)
+    console.info(">>>toUpload:", this.toUpload.nativeElement.files)
+    const file = this.toUpload.nativeElement.files[0]
+
+    const payload = <CreatePostPayload> ({
+      postName: postName,
+      description: description,
+      tags: tags
+    })
+    this.postService.createPost(payload, file)
     .then(
       result => {
         console.log("Create Post: createPost result:", result)
@@ -95,5 +107,6 @@ export class CreatePostComponent implements OnInit {
       this.tags.splice(index, 1);
     }
   }
+
 
 }

@@ -62,6 +62,7 @@ create table post (
     tags varchar(128),
     user_id int not null,
     p_created_date timestamp default (current_timestamp()),
+    image_url varchar(128),
 
     primary key(pid),
 
@@ -72,7 +73,7 @@ create table post (
 
 create table comment (
 	cid int not null auto_increment,
-    text varchar(128) not null,
+    text longtext not null,
     vote_count int,
     user_id int not null,
     post_id int not null,

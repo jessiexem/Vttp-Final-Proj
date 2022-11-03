@@ -16,5 +16,7 @@ public class PostResponse {
     private String description;
     private String userName;
     private Integer commentCount;
+//    private String tags;
+    private String imageUrl;
     private List<String> tags;
 }

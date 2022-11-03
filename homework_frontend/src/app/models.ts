@@ -23,6 +23,8 @@ export interface Post {
     userName: string;
     commentCount: number;
     tags: Tag[];
+    imageUrl: string
+    //tags: string
 }
 
 export interface Tag {
@@ -32,7 +34,8 @@ export interface Tag {
 export interface CreatePostPayload{
     postName: string;
     description: string;
-    tags: string[];
+    // tags: string[];
+    tags : string
 }
 
 export interface Comment {

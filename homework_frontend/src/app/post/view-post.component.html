@@ -17,6 +17,7 @@
                     <div>
                         <h2 class="post-title">{{post.postName}}</h2>
                         <p [innerHtml]="post.description"></p>
+                        <img [src]='"https://jgclass.sgp1.digitaloceanspaces.com/day38/" + post.imageUrl' alt="">
                     </div>
                     <br>
                     <!-- <hr> -->
@@ -44,7 +45,7 @@
                 </div>
             </form>
         </div>
-        <div class="comment-holder">
+        <div class="comment-holder" *ngIf="comments">
             <div *ngFor="let c of comments" class="vote-comment">
                 <div class="votebox">
                     <div>

@@ -24,6 +24,13 @@
                 >
         </mat-chip-list>
       </mat-form-field>
+
+      <div class="input-group">
+        <label for="file" class="input-group-text" ><mat-icon>image</mat-icon> <input type="file" class="form-control" id="file" formControlName="file" #toUpload ></label>
+          <!-- <mat-icon>image</mat-icon></label> -->
+        <!-- <input type="file" class="form-control" id="file" formControlName="file" #toUpload > -->
+      </div>
+      <br>
         <editor apiKey="z8y1fgozr9q7feub6kp2tcbb05hsc18ff5flamhiq4fi6ryy" formControlName="description" [init]="{
             height: 500,
             menubar: false,

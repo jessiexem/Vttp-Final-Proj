@@ -1,0 +1,23 @@
+.search {
+    width: 500px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* .example-form-field {
+    font-size: 10px;
+} */
+
+.mat-icon{
+    height:50px !important;
+    width: 50px !important;
+    font-size:40px !important;
+}
+
+.mat-form-field{
+    width:350px !important;
+ }
+

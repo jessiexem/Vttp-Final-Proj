@@ -12,12 +12,13 @@ import { MatChipsModule } from '@angular/material/chips';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatTabsModule} from '@angular/material/tabs';
 
 const matModules: any[] = [
     MatToolbarModule, MatButtonModule, MatListModule,
     MatIconModule, MatInputModule, MatFormFieldModule,
     MatMenuModule, MatCardModule, MatGridListModule, MatChipsModule,
-    MatSidenavModule, MatSelectModule, MatProgressBarModule
+    MatSidenavModule, MatSelectModule, MatProgressBarModule, MatTabsModule
   ]
   
   @NgModule({

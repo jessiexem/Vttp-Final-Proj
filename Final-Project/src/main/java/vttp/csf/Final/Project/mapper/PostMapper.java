@@ -23,18 +23,19 @@ public abstract class PostMapper {
     @Autowired
     private CommentRepository commentRepo;
 
-    @Mapping(target = "postId", source = "postRequest.postId")
-    @Mapping(target = "postName", source = "postRequest.postName")
-    @Mapping(target = "description", source = "postRequest.description")
-    @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
-    //@Mapping(target = "createdDate", expression = "java(java.util.Date.from(java.time.Instant.now()))")
-    @Mapping(target = "user", source = "user")
-    public abstract Post map (PostRequest postRequest, User user);
+//    @Mapping(target = "postId", source = "postRequest.postId")
+//    @Mapping(target = "postName", source = "postRequest.postName")
+//    @Mapping(target = "description", source = "postRequest.description")
+//    @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
+//    //@Mapping(target = "createdDate", expression = "java(java.util.Date.from(java.time.Instant.now()))")
+//    @Mapping(target = "user", source = "user")
+//    public abstract Post map (PostRequest postRequest, User user);
 
 
     @Mapping(target = "id", source = "post.postId")
     @Mapping(target = "userName", source = "post.user.username")
     @Mapping(target = "tags", source = "post.tags")
+    @Mapping(target = "imageUrl", source = "post.imageUrl")
     @Mapping(target = "commentCount", expression = "java(commentCount(post))")
     public abstract PostResponse mapPostToDto (Post post);
 

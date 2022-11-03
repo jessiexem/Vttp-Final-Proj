@@ -28,16 +28,20 @@ import { QuizWelcomeComponent } from './quiz/quiz-welcome.component';
 import { QuizService } from './quiz/quiz.service';
 import { QuestionDisplayComponent } from './quiz/question-display.component';
 import { ChangeBgDirective } from './change-bg.directive';
-
+import { SearchPostComponent } from './post/search-post/search-post.component';
+import { AuthGuardService as AuthGuard} from './auth/shared/authguard.service';
+import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
+import { ProfileComponent } from './profile/profile.component';
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'view-post/:id', component: ViewPostComponent },
-  { path: 'create-post', component: CreatePostComponent },
-  { path: 'quizHome', component: QuizWelcomeComponent },
-  { path: 'question', component: QuestionDisplayComponent },
+  { path: 'view-post/:id', component: ViewPostComponent, canActivate: [AuthGuard] },
+  { path: 'create-post', component: CreatePostComponent, canActivate: [AuthGuard] },
+  { path: 'quizHome', component: QuizWelcomeComponent, canActivate: [AuthGuard] },
+  { path: 'question', component: QuestionDisplayComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/',pathMatch: 'full'}
 ]
 
@@ -53,7 +57,8 @@ const appRoutes: Routes = [
     CreatePostComponent, 
     QuizWelcomeComponent, 
     QuestionDisplayComponent, 
-    ChangeBgDirective
+    ChangeBgDirective, 
+    SearchPostComponent, ProfileComponent
     // , VoteButtonComponent
   ],
   imports: [
@@ -66,12 +71,14 @@ const appRoutes: Routes = [
     FontAwesomeModule,
     EditorModule
   ],
-  providers: [AuthService, PostService, CommentService, VoteService, QuizService,
+  providers: [AuthService, PostService, CommentService, VoteService, QuizService, AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    }, 
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+        JwtHelperService
   ],
   bootstrap: [AppComponent]
 })

@@ -27,7 +27,7 @@ public class Queries {
             "delete from refresh_token where rid = ( select rid from (select rid from refresh_token where token= ?) as r);";
 
     public static final String SQL_INSERT_POST =
-            "insert into post(post_name, description, tags, user_id) values (?,?,?,?);";
+            "insert into post(post_name, description, tags, user_id, image_url) values (?,?,?,?,?);";
 
     public static final String SQL_SELECT_POST_BY_POST_ID =
             "select * from post inner join user on user.user_id = post.user_id where pid = ?";
