@@ -6,11 +6,8 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 import vttp.csf.Final.Project.dto.PostRequest;
 import vttp.csf.Final.Project.dto.PostResponse;
@@ -19,7 +16,10 @@ import vttp.csf.Final.Project.exception.PostNotFoundException;
 import vttp.csf.Final.Project.mapper.PostMapper;
 import vttp.csf.Final.Project.model.Post;
 import vttp.csf.Final.Project.model.User;
+import vttp.csf.Final.Project.repository.CommentRepository;
+import vttp.csf.Final.Project.repository.FavouriteRepository;
 import vttp.csf.Final.Project.repository.PostRepository;
+import vttp.csf.Final.Project.repository.VoteRepository;
 
 import java.util.*;
 import java.util.logging.Logger;
@@ -39,6 +39,15 @@ public class PostService {
 
     @Autowired
     private AmazonS3 s3;
+
+    @Autowired
+    private CommentRepository commentRepo;
+
+    @Autowired
+    private VoteRepository voteRepo;
+
+    @Autowired
+    private FavouriteRepository favRepo;
 
     private final Logger logger = Logger.getLogger(PostService.class.getName());
 
@@ -78,7 +87,7 @@ public class PostService {
 
         Optional<Post> optPost = postRepo.getPostById(id);
         if (optPost.isEmpty()) {
-            throw new HomeworkNerdException("Invalid refresh token");
+            throw new HomeworkNerdException("Invalid post id");
         }
         else {
             Post post = optPost.get();
@@ -100,5 +109,50 @@ public class PostService {
 
             return postResponseList;
         }
+    }
+
+    public List<PostResponse> getAllPostsByUserId(int userId) {
+        Optional<List<Post>> optList = postRepo.getAllPostsByUserId(userId);
+        if (optList.isEmpty()) {
+            return null;
+        } else {
+            List<Post> postList = optList.get();
+            List<PostResponse> postResponseList =
+                    postList.stream()
+                            .map(p -> postMapper.mapPostToDto(p))
+                            .collect(Collectors.toList());
+
+            return postResponseList;
+        }
+    }
+
+    @Transactional(rollbackFor = HomeworkNerdException.class)
+    public void deletePostByUserByPostId(Long postId) {
+        boolean isVotesDeleted = voteRepo.deleteVotesByPostId(postId);
+
+        boolean isCommentsDeleted = commentRepo.deleteCommentsByPostId(postId);
+
+        boolean isFavDeleted = favRepo.deleteFavouriteByPostId(postId);
+
+        Optional<Post> optPost = postRepo.getPostById(postId);
+        if (optPost.isEmpty()) {
+            throw new HomeworkNerdException("Invalid post id");
+        }
+        else {
+            String imageUrl = optPost.get().getImageUrl();
+            if (imageUrl!=null) {
+                deleteFileFromS3(imageUrl);
+            }
+        }
+
+        boolean isPostDeleted = postRepo.deletePostByPostId(postId);
+
+        if(!isVotesDeleted || !isCommentsDeleted || !isPostDeleted || !isFavDeleted) {
+            throw new HomeworkNerdException("deletePostByUserByPostId: Unable to delete post by user");
+        }
+    }
+
+    public void deleteFileFromS3(final String fileName) {
+        s3.deleteObject("jgclass","day38/%s".formatted(fileName));
     }
 }

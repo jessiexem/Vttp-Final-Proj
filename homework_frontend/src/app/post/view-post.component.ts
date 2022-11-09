@@ -7,7 +7,6 @@ import { Comment } from "src/app/models";
 import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { VoteService } from '../shared/vote-button/vote.service';
 import { ToastrService } from 'ngx-toastr';
-import { throwError } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -19,17 +18,17 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class ViewPostComponent implements OnInit {
 
   post!: Post
-  postId!: number;
+  postId!: number
   comments!: Comment[]
   commentForm!: FormGroup
 
   // isLoggedIn!: boolean;
-  votePayload!: VotePayload;
-  faArrowUp = faArrowUp;
-  faArrowDown = faArrowDown;
-  upvoteColor!: string;
-  downvoteColor!: string;
-  commentPayload!: CommentPayload;
+  votePayload!: VotePayload
+  faArrowUp = faArrowUp
+  faArrowDown = faArrowDown
+  upvoteColor!: string
+  downvoteColor!: string
+  commentPayload!: CommentPayload
 
   constructor(private postService: PostService, private activateRoute: ActivatedRoute, private commentSvc: CommentService,
     private voteSvc: VoteService, private toastr: ToastrService, private router: Router, private fb: FormBuilder) { 
@@ -97,7 +96,7 @@ export class ViewPostComponent implements OnInit {
     this.votePayload.commentId = cid
     this.voteSvc.voteComment(this.votePayload)
     .catch(error => {
-      if (error.error.message.length > 0) {
+      if (error.error.message?.length > 0) {
         this.toastr.error(error.error.message)
       }
     })
@@ -136,6 +135,23 @@ export class ViewPostComponent implements OnInit {
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(
       () => {
         this.router.navigate(['/view-post/'+this.postId])
+      }
+    )
+  }
+
+  addToFavourite(pid: number) {
+
+    this.postService.addToFavourite(pid)
+    .then(
+      result => {
+        console.log("addToFavourite result:",result)
+        this.toastr.success("Successfully added to your Favourites.")
+      }
+    )
+    .catch(
+      error => {
+        console.log("addToFavourite error:",error)
+        this.toastr.error(`Post ${pid} already exists in your Favourites.`)
       }
     )
   }

@@ -18,10 +18,12 @@ import vttp.csf.Final.Project.dto.AuthenticationResponse;
 import vttp.csf.Final.Project.dto.LoginRequest;
 import vttp.csf.Final.Project.dto.RefreshTokenRequest;
 import vttp.csf.Final.Project.dto.RegisterRequest;
+import vttp.csf.Final.Project.model.User;
 import vttp.csf.Final.Project.repository.UserRepository;
 import vttp.csf.Final.Project.service.AuthService;
 import vttp.csf.Final.Project.service.RefreshTokenService;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @RestController
@@ -34,19 +36,25 @@ public class AuthController {
     @Autowired
     private RefreshTokenService refreshTokenSvc;
 
+    @Autowired
+    private UserRepository userRepo;
+
     private final Logger logger = Logger.getLogger(AuthController.class.getName());
     
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody RegisterRequest regRequest) {
         logger.info("----RegisterRequest: "+regRequest.getEmail()+ regRequest.getUsername()+ regRequest.getPassword());
-        authSvc.signup(regRequest);
 
-//        JsonObject resp = Json.createObjectBuilder()
-//                .add("message","User registration successful")
-//                .build();
-//
-//        return ResponseEntity.status(HttpStatus.OK).body(resp.toString());
-        return ResponseEntity.status(HttpStatus.OK).body("User registration successful");
+        //check if username is taken
+        Optional<User> optUser = userRepo.findUserByUsername(regRequest.getUsername());
+        if(optUser.isEmpty()) {
+            authSvc.signup(regRequest);
+
+            return ResponseEntity.status(HttpStatus.OK).body("User registration successful");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username is already taken.");
+        }
+
     }
 
     @GetMapping("accountVerification/{token}")

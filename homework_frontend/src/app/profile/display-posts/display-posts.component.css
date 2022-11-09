@@ -1,0 +1,40 @@
+.post{
+    --post-line-color: #ccc;    
+    border: 1px solid #ccc;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    background-color: rgba(255,255,255,0.8);
+    color: #878A8C;
+    position: relative;
+    border-radius: 4px;
+    padding:5px;
+    width: calc(100% - 70px);
+    height: calc(100% - 70px);
+}
+
+.post-title{
+    font-size: 28px;
+    font-weight: bold;
+    opacity: 1;
+    color: black;
+}
+
+.display-post {
+    height:800px;
+    overflow-y: scroll;
+    width: 70%;
+    padding-left: 50px;
+    margin-bottom: 50px;
+}
+
+.header {
+    padding-left: 50px;
+    margin-top: 20px;
+    width: 70%;
+}
+
+.delete-btn {
+    float:right;
+    margin-right: 10px
+}

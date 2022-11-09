@@ -1,0 +1,53 @@
+<div class="header" *ngIf="posts">
+    <h2>{{posts?.length}} Posts</h2>
+</div>
+
+<div class="header" *ngIf="!posts">
+    <h2>0 Posts</h2>
+</div>
+
+<div class="noResultsHolder" *ngIf="!posts">
+    <mat-card>
+        <mat-card-content>
+            <p><em>You haven't posted any content yet.</em></p>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+<div class="display-post" *ngIf="posts">
+    <!-- <h2 *ngIf="searchValue">Results for <b>{{searchValue}}</b></h2> -->
+      <div *ngFor="let p of posts">
+        <div class="post">
+            <span>
+                <span>Posted by: {{p.userName}} on {{p.createdDate | date:'mediumDate'}}</span>
+                <span *ngFor="let t of p.tags">
+                    <span>
+                        <button mat-stroked-button color="accent" style="margin-left:5px; margin-right:5px;" (click)="newSearchPost(t)">{{t}}</button>
+                    </span>
+                </span>                                
+            </span>
+            <span>
+                <button mat-stroked-button color="warn" class="delete-btn" (click)="deletePost(p.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </span>
+            <hr>
+            <div>
+                <div>
+                    <h2 class="post-title">{{p.postName}}</h2>
+                    <div *ngIf="p?.description">
+                        <p [innerHtml]="p.description"></p>
+                    </div>
+                    <div *ngIf="p?.imageUrl">
+                        <img [src]='"https://jgclass.sgp1.digitaloceanspaces.com/day38/" + p.imageUrl' alt="">
+                    </div>
+                </div>
+                <span>
+                    <mat-icon>question_answer</mat-icon>
+                    Comments ({{p.commentCount}})
+                </span>
+                <button mat-raised-button color="primary" style="margin-left:5px; margin-bottom:5px; margin-top:5px;" type="submit" [routerLink]="['/view-post', p.id]">Read Post</button>
+            </div>
+        </div>
+    </div>
+</div>

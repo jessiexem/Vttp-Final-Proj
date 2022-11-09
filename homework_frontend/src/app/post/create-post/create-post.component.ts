@@ -33,7 +33,7 @@ export class CreatePostComponent implements OnInit {
   createForm() : FormGroup {
     return this.fb.group ({
       postName: this.fb.control<string>('', [Validators.required]),
-      description: this.fb.control<string>('', [Validators.required]),
+      description: this.fb.control<string>(''),
       tags: this.fb.control<Tag[]>([], Validators.required),
       file: this.fb.control<any>('')
     })

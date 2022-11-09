@@ -19,10 +19,16 @@
         <div class="card mb-4">
             <div class="card-header">Profile</div>
             <div class="card-body">
-                <mat-tab-group>
-                    <mat-tab label="Posts"> Content 1 </mat-tab>
-                    <mat-tab label="Comments"> Content 2 </mat-tab>
-                    <mat-tab label="Favourites"> Content 3 </mat-tab>
+                <mat-tab-group animationDuration="0ms">
+                    <mat-tab label="Posts">
+                        <app-display-posts></app-display-posts>
+                    </mat-tab>
+                    <mat-tab label="Comments">
+                        <app-display-comments></app-display-comments>
+                    </mat-tab>
+                    <mat-tab label="Favourites">
+                        <app-display-fav></app-display-fav>
+                    </mat-tab>
                   </mat-tab-group>
             </div>
         </div>

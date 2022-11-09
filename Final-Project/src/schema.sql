@@ -55,19 +55,19 @@ create table refresh_token (
 
 create table post (
 	pid int not null auto_increment,
-    post_name varchar(64) not null,
+    post_name MEDIUMTEXT not null,
 --     url varchar(64),
-    description longtext not null,
+    description longtext,
 --     comment_count int,
     tags varchar(128),
-    user_id int not null,
+    poster_user_id int not null,
     p_created_date timestamp default (current_timestamp()),
     image_url varchar(128),
 
     primary key(pid),
 
     constraint fk_user_id_1
-    foreign key (user_id)
+    foreign key (poster_user_id)
     references user(user_id)
 );
 
@@ -106,3 +106,22 @@ create table vote (
     foreign key (comment_id)
     references comment(cid)
 );
+
+create table favourite (
+	record_id int not null auto_increment,
+    fav_user_id int not null,
+    post_id int not null,
+    r_created_date datetime default (CURRENT_TIMESTAMP),
+
+    primary key(record_id),
+
+    constraint fk_user_id_4
+    foreign key (fav_user_id)
+    references user(user_id),
+
+    constraint fk_post_id_1
+    foreign key (post_id)
+    references post(pid)
+);
+
+

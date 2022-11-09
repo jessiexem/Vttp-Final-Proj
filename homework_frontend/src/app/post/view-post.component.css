@@ -57,7 +57,7 @@
 
 .vote-comment {
     display: flex;
-    flex-direction: row;;
+    flex-direction: row;
 }
 
 .commentForm {
@@ -73,6 +73,7 @@
 .comment-box {
     display: flex;
     align-items: center;
+    padding-top: 20px;
 }
 
 
@@ -91,7 +92,8 @@
 
 .comment-button {
     display: flex;
-    flex-direction: row;;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .display-post {
@@ -103,4 +105,9 @@
 
 .left {
     width: 30%;
+}
+
+.fav-btn {
+    float: right;
+    padding-right: 10px;
 }

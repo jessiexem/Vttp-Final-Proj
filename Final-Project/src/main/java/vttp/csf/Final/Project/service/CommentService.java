@@ -3,7 +3,9 @@ package vttp.csf.Final.Project.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import vttp.csf.Final.Project.dto.CommentsDto;
+import vttp.csf.Final.Project.dto.CommentsSummaryDto;
 import vttp.csf.Final.Project.exception.HomeworkNerdException;
 import vttp.csf.Final.Project.exception.PostNotFoundException;
 import vttp.csf.Final.Project.mapper.CommentMapper;
@@ -13,6 +15,7 @@ import vttp.csf.Final.Project.model.Post;
 import vttp.csf.Final.Project.model.User;
 import vttp.csf.Final.Project.repository.CommentRepository;
 import vttp.csf.Final.Project.repository.PostRepository;
+import vttp.csf.Final.Project.repository.VoteRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -41,6 +44,9 @@ public class CommentService {
 
     @Autowired
     private PostService postSvc;
+
+    @Autowired
+    private VoteRepository voteRepo;
 
     public void saveComment(CommentsDto commentsDto) {
         //check if post exists
@@ -75,7 +81,8 @@ public class CommentService {
             Post post = optPost.get();
             Optional<List<Comment>> optList = commentRepo.getAllCommentsByPost(post);
             if (optList.isEmpty()) {
-                throw new HomeworkNerdException("Comments not found for postId: "+ post.getPostId());
+                return null;
+                //throw new HomeworkNerdException("Comments not found for postId: "+ post.getPostId());
             }
             List<Comment> comments = optList.get();
             List<CommentsDto> commentsDtoList =
@@ -86,4 +93,28 @@ public class CommentService {
         }
     }
 
+    public List<CommentsSummaryDto> getAllCommentsByUserId(int userId) {
+        Optional<List<Comment>> optList = commentRepo.getAllCommentsByUserId(userId);
+        if(optList.isEmpty()) {
+            return null;
+        } else {
+            List<Comment> comments = optList.get();
+            List<CommentsSummaryDto> commentsSummaryDtoList =
+                    comments.stream()
+                            .map(c-> commentMapper.mapCommentToSummaryDto(c))
+                            .collect(Collectors.toList());
+            return commentsSummaryDtoList;
+        }
+    }
+
+    @Transactional(rollbackFor = HomeworkNerdException.class)
+    public void deleteCommentByUserByCommentId(int cid) {
+        boolean isVotesDeleted = voteRepo.deleteVotesByCommentId(cid);
+
+        boolean isCommentsDeleted = commentRepo.deleteCommentsByCommentId(cid);
+
+        if(!isVotesDeleted || !isCommentsDeleted) {
+            throw new HomeworkNerdException("deleteCommentByUserByCommentId: Unable to delete comment by user");
+        }
+    }
 }

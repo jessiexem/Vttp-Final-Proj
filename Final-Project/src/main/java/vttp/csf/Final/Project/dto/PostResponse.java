@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -19,4 +20,5 @@ public class PostResponse {
 //    private String tags;
     private String imageUrl;
     private List<String> tags;
+    private Instant createdDate;
 }

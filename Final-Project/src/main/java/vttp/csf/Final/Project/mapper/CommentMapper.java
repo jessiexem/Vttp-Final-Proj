@@ -4,6 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import vttp.csf.Final.Project.dto.CommentsDto;
+import vttp.csf.Final.Project.dto.CommentsSummaryDto;
 import vttp.csf.Final.Project.model.Comment;
 import vttp.csf.Final.Project.model.Post;
 import vttp.csf.Final.Project.model.User;
@@ -35,6 +36,9 @@ public abstract class CommentMapper {
         //@Mapping(target = "downVote", expression = "java(isPostDownVoted(post))")
     public abstract CommentsDto mapCommentToDto (Comment comment);
 
-
+    @Mapping(target = "postId", expression = "java(comment.getPost().getPostId())" )
+    @Mapping(target = "postName", expression = "java(comment.getPost().getPostName())" )
+    @Mapping(target = "username", expression = "java(comment.getUser().getUsername())")
+    public abstract CommentsSummaryDto mapCommentToSummaryDto (Comment comment);
 
 }

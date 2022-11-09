@@ -1,0 +1,47 @@
+<div class="header" *ngIf="commentSummaryList">
+    <h2>{{commentSummaryList?.length}} Comments</h2>
+</div>
+
+<div class="header" *ngIf="!commentSummaryList">
+    <h2>0 Comments</h2>
+</div>
+
+<div class="noResultsHolder" *ngIf="!commentSummaryList">
+    <mat-card>
+        <mat-card-content>
+            <p><em>You haven't posted any comments yet.</em></p>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+<div class="display-comment-summary" *ngIf="commentSummaryList">
+    <!-- <h2 *ngIf="searchValue">Results for <b>{{searchValue}}</b></h2> -->
+      <div *ngFor="let comment of commentSummaryList">
+        <div class="post">                              
+            <span>
+                <button mat-stroked-button color="warn" class="delete-btn" (click)="deleteComment(comment.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </span>
+            <div class="header">
+                <h4 class="username">{{comment.username}}</h4>
+
+                <p>Answered on {{comment.createdDate | date:'mediumDate'}}</p>
+                <h2 class="post-title">{{comment.postName}}</h2>
+                <div>
+                    <p>{{comment.text}}</p>
+                </div>
+                <div class="vote-btn-grp">
+                    <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" disabled>
+                        <mat-icon>keyboard_arrow_down</mat-icon>
+                    </button>
+                    <div class="votecount">{{comment.voteCount}}</div>
+                    <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" disabled>
+                        <mat-icon>keyboard_arrow_up</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <!-- <button mat-raised-button color="primary" style="margin-left:5px; margin-bottom:5px; margin-top:5px;" type="submit" [routerLink]="['/view-post', p.id]">Read Post</button> -->
+        </div>
+    </div>
+</div>

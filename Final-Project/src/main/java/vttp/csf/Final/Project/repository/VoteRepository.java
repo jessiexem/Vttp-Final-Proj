@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
+import vttp.csf.Final.Project.exception.HomeworkNerdException;
 import vttp.csf.Final.Project.model.Comment;
 import vttp.csf.Final.Project.model.Post;
 import vttp.csf.Final.Project.model.User;
@@ -41,4 +42,47 @@ public class VoteRepository {
         }
         else return Optional.of(Vote.create(rs));
     }
+
+    public boolean deleteVotesByPostId(Long postId) {
+
+        //check if the post has any comments
+        SqlRowSet rs = template.queryForRowSet(SQL_SELECT_ALL_COMMENTS_BY_POST_ID,postId);
+        if (!rs.isBeforeFirst()) {
+            //check if comments has any votes based on postId
+            if (countVotesByPostId(postId) >0) {
+                int isDeleted = template.update(SQL_DELETE_VOTES_BY_POST_ID, postId);
+                return isDeleted>0;
+            }
+        }
+        return true;
+    }
+
+    public boolean deleteVotesByCommentId(int commentId) {
+        if(countVotesByCommentId(commentId)>0) {
+            int isDeleted = template.update(SQL_DELETE_VOTES_BY_COMMENT_ID, commentId);
+            return isDeleted>0;
+        }
+        else {
+            return true;
+        }
+    }
+
+    public int countVotesByCommentId(int commentId) {
+        final SqlRowSet rs = template.queryForRowSet(SQL_COUNT_VOTES_BY_COMMENT_ID, commentId);
+
+        if(!rs.next()) {
+            throw new HomeworkNerdException("unable to count votes By Comment Id");
+        }
+        return rs.getInt("count");
+    }
+
+    public int countVotesByPostId(Long postId){
+        SqlRowSet rs = template.queryForRowSet(SQL_COUNT_VOTES_BY_POST_ID, postId);
+        if(!rs.next()) {
+            throw new HomeworkNerdException("unable to count votes By Comment Id");
+        }
+        return rs.getInt("count");
+    }
+
+
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
+import vttp.csf.Final.Project.exception.HomeworkNerdException;
 import vttp.csf.Final.Project.model.Comment;
 import vttp.csf.Final.Project.model.Post;
 
@@ -66,4 +67,46 @@ public class CommentRepository {
 
         return updated==1;
     }
+
+    public boolean deleteCommentsByPostId(Long postId) {
+        if(countCommentsByPostId(postId)>0) {
+            int isDeleted = template.update(SQL_DELETE_COMMENTS_BY_POST_ID, postId);
+            return isDeleted>0;
+        } else {
+            return true;
+        }
+    }
+
+    public int countCommentsByPostId(Long postId) {
+        final SqlRowSet rs = template.queryForRowSet(SQL_COUNT_COMMENTS_BY_POST_ID, postId);
+        if(!rs.next()) {
+            throw new HomeworkNerdException("unable to count comments by Post Id");
+        }
+        return rs.getInt("count");
+    }
+
+    public Optional<List<Comment>> getAllCommentsByUserId(int userId) {
+        final SqlRowSet rs = template.queryForRowSet(SQL_FIND_ALL_COMMENTS_BY_USER_ID,
+                userId);
+
+        if (!rs.isBeforeFirst()) {
+            logger.warning(">>>> CommentRepo: getAllCommentsByUserId: no data found");
+            return Optional.empty();
+        }
+        else {
+            List<Comment> list = new ArrayList<>();
+            while (rs.next()) {
+                list.add(Comment.create(rs));
+            }
+            return Optional.of(list);
+        }
+    }
+
+    public boolean deleteCommentsByCommentId(int commentId) {
+        int isDeleted = template.update(SQL_DELETE_COMMENTS_BY_COMMENT_ID, commentId);
+        return isDeleted>0;
+    }
+
+
+
 }

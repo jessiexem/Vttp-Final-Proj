@@ -1,0 +1,53 @@
+<div class="header" *ngIf="favourites">
+    <h2>{{favourites?.length}} favourites</h2>
+</div>
+
+<div class="header" *ngIf="!favourites">
+    <h2>0 Favourites</h2>
+</div>
+
+<div class="noResultsHolder" *ngIf="!favourites">
+    <mat-card>
+        <mat-card-content>
+            <p><em>You haven't added any favourite yet.</em></p>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+<div class="display-post" *ngIf="favourites">
+    <!-- <h2 *ngIf="searchValue">Results for <b>{{searchValue}}</b></h2> -->
+      <div *ngFor="let f of favourites">
+        <div class="post">
+            <span>
+                <span>Posted by: {{f.postResponse.userName}} on {{f.postResponse.createdDate | date:'mediumDate'}}</span>
+                <span *ngFor="let t of f.postResponse.tags">
+                    <span>
+                        <button mat-stroked-button color="accent" style="margin-left:5px; margin-right:5px;" (click)="newSearchPost(t)">{{t}}</button>
+                    </span>
+                </span>                                
+            </span>
+            <span>
+                <button mat-stroked-button color="warn" class="delete-btn" (click)="deleteFav(f.recordId)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </span>
+            <hr>
+            <div>
+                <div>
+                    <h2 class="post-title">{{f.postResponse.postName}}</h2>
+                    <div *ngIf="f.postResponse?.description">
+                        <p [innerHtml]="f.postResponse.description"></p>
+                    </div>
+                    <div *ngIf="f.postResponse?.imageUrl">
+                        <img [src]='"https://jgclass.sgp1.digitaloceanspaces.com/day38/" + f.postResponse.imageUrl' alt="">
+                    </div>
+                </div>
+                <span>
+                    <mat-icon>question_answer</mat-icon>
+                    Comments ({{f.postResponse.commentCount}})
+                </span>
+                <button mat-raised-button color="primary" style="margin-left:5px; margin-bottom:5px; margin-top:5px;" type="submit" [routerLink]="['/view-post', f.postResponse.id]">Read Post</button>
+            </div>
+        </div>
+    </div>
+</div>

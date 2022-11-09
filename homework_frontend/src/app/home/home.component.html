@@ -30,7 +30,9 @@
                     <div>
                         <h2 class="post-title">{{p.postName}}</h2>
                         <p [innerHtml]="p.description"></p>
-                        <img [src]='"https://jgclass.sgp1.digitaloceanspaces.com/day38/" + p.imageUrl' alt="">
+                        <div *ngIf="p?.imageUrl">
+                            <img [src]='"https://jgclass.sgp1.digitaloceanspaces.com/day38/" + p.imageUrl' alt="">
+                        </div>
                     </div>
                     <span>
                         <mat-icon>question_answer</mat-icon>

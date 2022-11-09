@@ -32,6 +32,9 @@ import { SearchPostComponent } from './post/search-post/search-post.component';
 import { AuthGuardService as AuthGuard} from './auth/shared/authguard.service';
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 import { ProfileComponent } from './profile/profile.component';
+import { DisplayPostsComponent } from './profile/display-posts/display-posts.component';
+import { DisplayCommentsComponent } from './profile/display-comments/display-comments.component';
+import { DisplayFavComponent } from './profile/display-fav/display-fav.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -58,7 +61,7 @@ const appRoutes: Routes = [
     QuizWelcomeComponent, 
     QuestionDisplayComponent, 
     ChangeBgDirective, 
-    SearchPostComponent, ProfileComponent
+    SearchPostComponent, ProfileComponent, DisplayPostsComponent, DisplayCommentsComponent, DisplayFavComponent
     // , VoteButtonComponent
   ],
   imports: [

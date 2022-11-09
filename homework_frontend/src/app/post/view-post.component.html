@@ -5,43 +5,50 @@
         <div class="display-post">
             <div class="post">
                 <span>
-                    <span *ngFor="let t of post.tags">
+                    <span *ngFor="let t of post?.tags">
                         <span>
                             <button mat-stroked-button color="accent" style="margin-left:5px; margin-right:5px;" >{{t}}</button>
                         </span>
                     </span>
-                    <span>Posted by: {{post.userName}}</span>
+                    <span>Posted by: {{post?.userName}} on {{post?.createdDate | date:'mediumDate'}}</span>
+                    <span class="fav-btn">
+                        <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon" (click)="addToFavourite(post.id)">
+                            <mat-icon>favorite</mat-icon>
+                        </button>
+                    </span>
                 </span>
                 <hr>
                 <div>
                     <div>
-                        <h2 class="post-title">{{post.postName}}</h2>
-                        <p [innerHtml]="post.description"></p>
-                        <img [src]='"https://jgclass.sgp1.digitaloceanspaces.com/day38/" + post.imageUrl' alt="">
+                        <h2 class="post-title">{{post?.postName}}</h2>
+                        <p [innerHtml]="post?.description"></p>
+                        <div *ngIf="post?.imageUrl">
+                            <img [src]='"https://jgclass.sgp1.digitaloceanspaces.com/day38/" + post?.imageUrl' alt="">
+                        </div>
                     </div>
                     <br>
                     <!-- <hr> -->
                     <span>
                         <mat-icon>question_answer</mat-icon>
-                        Comments ({{post.commentCount}})
+                        Comments ({{post?.commentCount}})
                     </span>
                 </div>
             </div>
         <div >
             <form class="commentForm" [formGroup]="commentForm" (ngSubmit)="createComment()">
                 <div class="comment-button">
-                <div class="comment-box">
-                <mat-form-field appearance="outline" style="width: 800px;">
-                    <mat-label>Add a comment...</mat-label>
-                    <textarea matInput cdkTextareaAutosize
-                    cdkAutosizeMinRows="1"
-                    cdkAutosizeMaxRows="5"
-                    formControlName="text"></textarea>
-                </mat-form-field>
-                </div>
-                <div class="btn-holder" >
-                    <button mat-raised-button color="primary" type="submit">Add comment</button>
-                </div>
+                    <div class="comment-box">
+                    <mat-form-field appearance="outline" style="width: 800px;">
+                        <mat-label>Add a comment...</mat-label>
+                        <textarea matInput cdkTextareaAutosize
+                        cdkAutosizeMinRows="1"
+                        cdkAutosizeMaxRows="5"
+                        formControlName="text"></textarea>
+                    </mat-form-field>
+                    </div>
+                    <div class="btn-holder" >
+                        <button mat-raised-button color="primary" type="submit">Add comment</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -63,7 +70,7 @@
                 <div class="comment">
                     <div class="header">
                         <span class="username">{{c.username}} . </span>
-                        <span>Answered on {{c.createdDate}}</span>
+                        <span>Answered on {{c.createdDate | date:'mediumDate'}}</span>
                     </div>
                     <br>
                     <div>

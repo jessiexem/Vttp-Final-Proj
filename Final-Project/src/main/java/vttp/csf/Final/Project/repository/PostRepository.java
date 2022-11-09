@@ -29,9 +29,6 @@ public class PostRepository {
     public Integer savePost(int user_id, PostRequest post) {
         logger.info("in PostRepo: savePost for userId:" + user_id);
 
-//        List<String> tagList = post.getTags();
-//        String tags = String.join(",", tagList);
-
         KeyHolder keyHolder = new GeneratedKeyHolder();
         template.update(conn -> {
             PreparedStatement ps = conn.prepareStatement(SQL_INSERT_POST,
@@ -72,6 +69,26 @@ public class PostRepository {
             }
             return Optional.of(list);
         }
+    }
+
+    public Optional<List<Post>> getAllPostsByUserId(int userId) {
+        final SqlRowSet rs = template.queryForRowSet(SQL_SELECT_ALL_POSTS_BY_USER_ID, userId);
+        if (!rs.isBeforeFirst()) {
+            logger.warning(">>>> PostRepository: getAllPosts: no data found");
+            return Optional.empty();
+        }
+        else {
+            List<Post> list = new ArrayList<>();
+            while (rs.next()) {
+                list.add(Post.create(rs));
+            }
+            return Optional.of(list);
+        }
+    }
+
+    public boolean deletePostByPostId(Long postId) {
+        int isDeleted = template.update(SQL_DELETE_POST_BY_POST_ID, postId);
+        return isDeleted>0;
     }
 
 

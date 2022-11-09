@@ -24,6 +24,7 @@ export interface Post {
     commentCount: number;
     tags: Tag[];
     imageUrl: string
+    createdDate : Date;
     //tags: string
 }
 
@@ -41,6 +42,16 @@ export interface CreatePostPayload{
 export interface Comment {
     id: number;
     postId: number;
+    createdDate : Date;
+    text: string;
+    username: string;
+    voteCount: number
+}
+
+export interface CommentSummary {
+    id: number;
+    postId: number;
+    postName: string;
     createdDate : Date;
     text: string;
     username: string;
@@ -74,4 +85,10 @@ export interface Quiz {
     optionsArray: string[];
     answerArray: string[];
     explanation: string;
+}
+
+export interface Favourite {
+    recordId: number
+    userId: number
+    postResponse: Post
 }

@@ -37,7 +37,7 @@ export class SignupComponent implements OnInit {
     })
     .catch(error => {
       console.error("--- Signup error:", error)
-      this.toastr.error('Registration failed! Please try again.')
+      this.toastr.error('Username has been taken. Please try again.')
       //alert(`Cannot signup ${signupReq.username}. Please try again.`)
     })
   }

@@ -30,7 +30,9 @@ public class Post {
         Post post = new Post();
         post.setPostId(rs.getLong("pid"));
         post.setPostName(rs.getString("post_name"));
-        post.setDescription(rs.getString("description"));
+        if(rs.getString("description") !=null) {
+            post.setDescription(rs.getString("description"));
+        }
         String tags = rs.getString("tags");
         List<String> tagList = new ArrayList<String>(Arrays.asList(tags.split(",")));
         post.setTags(tagList);
