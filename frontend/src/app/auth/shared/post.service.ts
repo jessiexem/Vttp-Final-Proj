@@ -3,13 +3,16 @@ import { Injectable } from "@angular/core";
 import { firstValueFrom} from "rxjs";
 import { CreatePostPayload, Favourite, Post, Topics } from "src/app/models";
 
-const URL_GET_ALL_POSTS = "http://localhost:8080/api/posts"
-const URL_GET_POST_BY_ID = "http://localhost:8080/api/posts/"
-const URL_GET_ALL_POSTS_BY_USERNAME = "http://localhost:8080/api/posts/profile/"
-const URL_DELETE_POST_BY_USER_BY_POST_ID = "http://localhost:8080/api/posts/delete/"
-const URL_GET_ALL_TOPICS = "http://localhost:8080/api/posts/topics/"
-const URL_ADD_TO_FAVOURITE = "http://localhost:8080/api/fav"
-const URL_DELETE_FAVOURITE_BY_RECORD_ID = "http://localhost:8080/api/fav/delete/"
+//const BASE_URL = "http://localhost:8080"
+const BASE_URL = "https://askit.azurewebsites.net/"
+
+const URL_GET_ALL_POSTS = BASE_URL+"/api/posts"
+const URL_GET_POST_BY_ID = BASE_URL+"/api/posts/"
+const URL_GET_ALL_POSTS_BY_USERNAME = BASE_URL+"/api/posts/profile/"
+const URL_DELETE_POST_BY_USER_BY_POST_ID = BASE_URL+"/api/posts/delete/"
+const URL_GET_ALL_TOPICS = BASE_URL+"/api/posts/topics/"
+const URL_ADD_TO_FAVOURITE = BASE_URL+"/api/fav"
+const URL_DELETE_FAVOURITE_BY_RECORD_ID = BASE_URL+"/api/fav/delete/"
 
 @Injectable()
 export class PostService {

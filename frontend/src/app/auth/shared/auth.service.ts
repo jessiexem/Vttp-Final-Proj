@@ -6,10 +6,14 @@ import { firstValueFrom, map, Subject, tap } from "rxjs";
 import { LoginRequest, LoginResponse, ProfilePicResponse, SignupRequest } from "src/app/models";
 import { JwtHelperService } from '@auth0/angular-jwt';
 
-const URL_SIGNUP = "http://localhost:8080/api/auth/signup"
-const URL_LOGIN = "http://localhost:8080/api/auth/login"
-const URL_GENERATE_NEW_TOKEN_W_REFRESH_TOKEN = "http://localhost:8080/api/auth/refresh/token"
-const URL_UPDATE_PROFILE_PIC =  "http://localhost:8080/api/auth/dp"
+//const BASE_URL = "http://localhost:8080"
+const BASE_URL = "https://askit.azurewebsites.net/"
+
+const URL_SIGNUP = BASE_URL+"/api/auth/signup"
+const URL_LOGIN = BASE_URL+"/api/auth/login"
+const URL_LOGOUT = BASE_URL+"/api/auth/logout"
+const URL_GENERATE_NEW_TOKEN_W_REFRESH_TOKEN = BASE_URL+"/api/auth/refresh/token"
+const URL_UPDATE_PROFILE_PIC =  BASE_URL+"/api/auth/dp"
 
 @Injectable()
 export class AuthService {
@@ -95,7 +99,7 @@ export class AuthService {
     }
 
     logout() {
-        this.http.post('http://localhost:8080/api/auth/logout', this.refreshTokenPayload)
+        this.http.post(URL_LOGOUT, this.refreshTokenPayload)
         .pipe(
             map(
                 data => {

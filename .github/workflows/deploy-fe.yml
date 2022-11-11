@@ -1,0 +1,26 @@
+name: Azure App Service CI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: mv -f frontend/* .
+      - name: Set up Node 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Build with Node
+        run: |
+          npm install
+          npm run build --if-present
+      - uses: azure/webapps-deploy@v2
+        with:
+          app-name: socialit
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_FE }} 
+          package: '.dist/socialit'

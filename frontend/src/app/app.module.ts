@@ -19,7 +19,6 @@ import { PostService } from './auth/shared/post.service';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { ViewPostComponent } from './post/view-post.component';
 import { CommentService } from './comment/comment.service';
-//import { VoteButtonComponent } from './shared/vote-button/vote-button.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { VoteService } from './shared/vote-button/vote.service';
 import { EditorModule } from '@tinymce/tinymce-angular';
@@ -61,8 +60,11 @@ const appRoutes: Routes = [
     QuizWelcomeComponent, 
     QuestionDisplayComponent, 
     ChangeBgDirective, 
-    SearchPostComponent, ProfileComponent, DisplayPostsComponent, DisplayCommentsComponent, DisplayFavComponent
-    // , VoteButtonComponent
+    SearchPostComponent, 
+    ProfileComponent, 
+    DisplayPostsComponent, 
+    DisplayCommentsComponent, 
+    DisplayFavComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule, 
