@@ -1,29 +1,27 @@
-<div class="sidebar" style="width: 100%; height: 100%">
+<div class="sidebar" style="width: 100%; height:50%">
     <img src="https://www.redditstatic.com/desktop2x/img/id-cards/home-banner@2x.png">
-    <div style="text-align: center; font-size: 1em;">Welcome to Homework Nerd home page. Come here to
+    <!-- <div style="text-align: center; font-size: 1em;">Welcome to Homework Nerd home page. Come here to
         post a question now!</div>
     <div style="text-align: center">
         <button mat-raised-button color="accent" (click)="goToCreatePost()">Create Post</button>
     </div>
-    <br>
+    <br> -->
 
-    <div>
+    <!-- <div>
         <img src="https://www.redditstatic.com/desktop2x/img/id-cards/home-banner@2x.png">
         <div style="text-align: center; font-size: 1em;">Test your knowledge now!</div>
         <div style="text-align: center">
             <button mat-raised-button color="primary" (click)="goToQuizHome()">Try a Quiz!</button>
         </div>
     </div>
-    <br>
+    <br> -->
 
     <div>
-        <img src="https://www.redditstatic.com/desktop2x/img/id-cards/home-banner@2x.png">
-        <div style="text-align: center; font-size: 1em;">Browse Posts By Your Favourite Topics</div>
+        <!-- <img src="https://www.redditstatic.com/desktop2x/img/id-cards/home-banner@2x.png"> -->
+        <div style="text-align: center; font-size: 1em;">Look at what others are posting about:</div>
         <hr/>
-        <mat-list role="list">
-            <mat-list-item role="listitem">Math</mat-list-item>
-            <mat-list-item role="listitem">Programming</mat-list-item>
-            <mat-list-item role="listitem">Science</mat-list-item>
+        <mat-list role="list" *ngFor="let t of topics?.tags">
+            <mat-list-item role="listitem" (click)="newSearchPost(t)" >{{t}}</mat-list-item>
         </mat-list>
     </div>
 </div>

@@ -17,28 +17,37 @@
         <h2 *ngIf="searchValue">Results for <b>{{searchValue}}</b></h2>
           <div *ngFor="let p of posts">
             <div class="post">
-                <span>
-                    <span *ngFor="let t of p.tags">
-                        <span>
-                            <button mat-stroked-button color="accent" style="margin-left:5px; margin-right:5px;" (click)="newSearchPost(t)">{{t}}</button>
-                        </span>
-                    </span>                                
-                    <span>Posted by: {{p.userName}}</span>
-                </span>
+                <div class="post-header">
+                    <div class="padding">
+                        <img class="profile-image img-account-profile rounded-circle" [src]="p.posterDpImageUrl || p.posterDpImageUrl?.length==0? 'https://jgclass.sgp1.digitaloceanspaces.com/display-pic/'+p.posterDpImageUrl : 'http://bootdey.com/img/Content/avatar/avatar1.png'" alt="">                           
+                    </div>
+                    <span class="padding">{{p.userName}}</span>
+
+                </div>
                 <hr>
                 <div>
-                    <div>
+                    <div style="margin-top:10px; margin-bottom:10px;">
                         <h2 class="post-title">{{p.postName}}</h2>
                         <p [innerHtml]="p.description"></p>
-                        <div *ngIf="p?.imageUrl">
-                            <img [src]='"https://jgclass.sgp1.digitaloceanspaces.com/day38/" + p.imageUrl' alt="">
+                        <div class="img-box" *ngIf="p?.imageUrl">
+                            <img class="post-image" [src]='"https://jgclass.sgp1.digitaloceanspaces.com/day38/" + p.imageUrl' alt="">
                         </div>
                     </div>
                     <span>
                         <mat-icon>question_answer</mat-icon>
                         Comments ({{p.commentCount}})
                     </span>
-                    <button mat-raised-button color="primary" style="margin-left:5px; margin-bottom:5px; margin-top:5px;" type="submit" (click)="goToPost(p.id)">Read Post</button>
+                    <br>
+                    <br>
+                    <span> Tags:
+                        <span *ngFor="let t of p.tags" class="padding">
+                            <span>
+                                <button mat-stroked-button color="accent" style="margin-left:5px; margin-right:5px;" (click)="newSearchPost(t)">{{t}}</button>
+                            </span>
+                        </span>
+                    </span>
+                    <br>
+                    <button mat-raised-button color="primary" style="margin-bottom:5px; margin-top:5px; float: right;" type="submit" (click)="goToPost(p.id)">Read Post</button>
                 </div>
             </div>
         </div>

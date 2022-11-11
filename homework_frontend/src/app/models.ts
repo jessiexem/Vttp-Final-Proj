@@ -10,6 +10,7 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
+    dpUrl?: string;
     authenticationToken: string;
     refreshToken: string;
     expiresAt: Date;
@@ -21,6 +22,7 @@ export interface Post {
     postName: string;
     description: string;
     userName: string;
+    posterDpImageUrl: string;
     commentCount: number;
     tags: Tag[];
     imageUrl: string
@@ -45,6 +47,7 @@ export interface Comment {
     createdDate : Date;
     text: string;
     username: string;
+    commenterDpImageUrl: string;
     voteCount: number
 }
 
@@ -55,6 +58,7 @@ export interface CommentSummary {
     createdDate : Date;
     text: string;
     username: string;
+    commenterDpImageUrl: string;
     voteCount: number
 }
 
@@ -91,4 +95,12 @@ export interface Favourite {
     recordId: number
     userId: number
     postResponse: Post
+}
+
+export interface ProfilePicResponse {
+    profilePicUrl?: string
+}
+
+export interface Topics {
+    tags: string[]
 }

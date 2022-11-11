@@ -1,29 +1,27 @@
 <div class="ancestor">
         <div class="left">
-        <!-- <app-sidebar></app-sidebar> -->
+        <app-sidebar></app-sidebar>
         </div>
         <div class="display-post">
             <div class="post">
-                <span>
-                    <span *ngFor="let t of post?.tags">
-                        <span>
-                            <button mat-stroked-button color="accent" style="margin-left:5px; margin-right:5px;" >{{t}}</button>
-                        </span>
-                    </span>
-                    <span>Posted by: {{post?.userName}} on {{post?.createdDate | date:'mediumDate'}}</span>
-                    <span class="fav-btn">
+                <div class="post-header">
+                    <div class="post-header-left padding">
+                        <img class="profile-image img-account-profile rounded-circle" [src]="post?.posterDpImageUrl || post?.posterDpImageUrl?.length==0? 'https://jgclass.sgp1.digitaloceanspaces.com/display-pic/'+post.posterDpImageUrl : 'http://bootdey.com/img/Content/avatar/avatar1.png'" alt="">
+                        <span class="username"><b>{{post?.userName}}</b> on {{post?.createdDate | date:'mediumDate'}}</span>
+                    </div>
+                    <div>
                         <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon" (click)="addToFavourite(post.id)">
                             <mat-icon>favorite</mat-icon>
                         </button>
-                    </span>
-                </span>
+                    </div>
+                </div>
                 <hr>
                 <div>
                     <div>
                         <h2 class="post-title">{{post?.postName}}</h2>
                         <p [innerHtml]="post?.description"></p>
                         <div *ngIf="post?.imageUrl">
-                            <img [src]='"https://jgclass.sgp1.digitaloceanspaces.com/day38/" + post?.imageUrl' alt="">
+                            <img class="post-image" [src]='"https://jgclass.sgp1.digitaloceanspaces.com/day38/" + post?.imageUrl' alt="">
                         </div>
                     </div>
                     <br>
@@ -32,13 +30,23 @@
                         <mat-icon>question_answer</mat-icon>
                         Comments ({{post?.commentCount}})
                     </span>
+                    <br>
+                    <br>
+                    <span>
+                        Tags:
+                        <span *ngFor="let t of post?.tags">
+                            <span>
+                                <button mat-stroked-button color="accent" style="margin-left:5px; margin-right:5px;" (click)="newSearchPost(t)">{{t}}</button>
+                            </span>
+                        </span>
+                    </span>
                 </div>
             </div>
-        <div >
-            <form class="commentForm" [formGroup]="commentForm" (ngSubmit)="createComment()">
+        <div class="commentForm" >
+            <form [formGroup]="commentForm" (ngSubmit)="createComment()">
                 <div class="comment-button">
                     <div class="comment-box">
-                    <mat-form-field appearance="outline" style="width: 800px;">
+                    <mat-form-field appearance="outline" style="width: 500px;">
                         <mat-label>Add a comment...</mat-label>
                         <textarea matInput cdkTextareaAutosize
                         cdkAutosizeMinRows="1"
@@ -69,8 +77,9 @@
                 </div>
                 <div class="comment">
                     <div class="header">
-                        <span class="username">{{c.username}} . </span>
-                        <span>Answered on {{c.createdDate | date:'mediumDate'}}</span>
+                        <img class="profile-image img-account-profile rounded-circle" [src]="c.commenterDpImageUrl || c.commenterDpImageUrl?.length==0? 'https://jgclass.sgp1.digitaloceanspaces.com/display-pic/'+c.commenterDpImageUrl : 'http://bootdey.com/img/Content/avatar/avatar1.png'" alt="">
+                        <span class="username"><b>{{c.username}}</b> answered on {{c.createdDate | date:'mediumDate'}} </span>
+                        <!-- <span>answered on {{c.createdDate | date:'mediumDate'}}</span> -->
                     </div>
                     <br>
                     <div>

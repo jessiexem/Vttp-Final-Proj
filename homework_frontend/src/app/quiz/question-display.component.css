@@ -19,7 +19,7 @@
 }
 
 mat-list-item, .question {
-    border: 1px solid lightgray;
+  border: 1px solid lightgray;
   border-radius: 5px;
 }
 
@@ -41,7 +41,7 @@ mat-list-item:hover {
     border: 1px solid blue;
 }
 
-/* ol {
-    padding: 0;
-} */
+.quiz-header {
+    padding: 20px;
+}
 

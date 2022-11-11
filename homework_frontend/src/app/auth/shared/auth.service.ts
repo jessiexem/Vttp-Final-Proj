@@ -3,12 +3,13 @@ import { Injectable, Output } from "@angular/core";
 import { Router } from "@angular/router";
 import { LocalStorageService } from "ngx-webstorage";
 import { firstValueFrom, map, Subject, tap } from "rxjs";
-import { LoginRequest, LoginResponse, SignupRequest } from "src/app/models";
+import { LoginRequest, LoginResponse, ProfilePicResponse, SignupRequest } from "src/app/models";
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 const URL_SIGNUP = "http://localhost:8080/api/auth/signup"
 const URL_LOGIN = "http://localhost:8080/api/auth/login"
 const URL_GENERATE_NEW_TOKEN_W_REFRESH_TOKEN = "http://localhost:8080/api/auth/refresh/token"
+const URL_UPDATE_PROFILE_PIC =  "http://localhost:8080/api/auth/dp"
 
 @Injectable()
 export class AuthService {
@@ -18,6 +19,9 @@ export class AuthService {
 
     @Output()
     username = new Subject<string>()
+
+    @Output()
+    dpUrl = new Subject<string>()
 
     refreshTokenPayload = {
         refreshToken: this.getRefreshToken(),
@@ -44,9 +48,11 @@ export class AuthService {
                     this.localStorage.store('username', data.username)
                     this.localStorage.store('refreshToken', data.refreshToken)
                     this.localStorage.store('expiresAt', data.expiresAt)
-                    
+                    this.localStorage.store('dpUrl', data.dpUrl)
+
                     this.onLoggedIn.next(true)
                     this.username.next(data.username)
+                    this.dpUrl.next(data.dpUrl!)
                     return true
                 })
             )
@@ -102,16 +108,33 @@ export class AuthService {
         this.localStorage.clear('username');
         this.localStorage.clear('refreshToken');
         this.localStorage.clear('expiresAt');
-
+        this.localStorage.clear('dpUrl');
+        
         // this.router.navigate(['/login'])
         
-      }
+    }
 
       public isAuthenticated(): boolean {
         const token = this.localStorage.retrieve('authenticationToken')
         // Check whether the token is expired and return
         // true or false
         return !this.jwtHelper.isTokenExpired(token);
-      }
+    }
+
+    uploadProfilePic(file: Blob) {
+        const data = new FormData()
+        data.set('file', file)
+
+        return firstValueFrom (
+            this.http.post<ProfilePicResponse>(URL_UPDATE_PROFILE_PIC, data)
+            .pipe(
+                map((result) => {
+                    console.log(result.profilePicUrl)
+                    this.localStorage.store('dpUrl', result.profilePicUrl)
+                    this.dpUrl.next(result.profilePicUrl!)
+                })
+            )
+        )
+    }
 
 }

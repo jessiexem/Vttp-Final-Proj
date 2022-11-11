@@ -155,4 +155,8 @@ export class ViewPostComponent implements OnInit {
       }
     )
   }
+
+  newSearchPost(searchTerm : string) {
+    this.router.navigate(['/'], {queryParams: {search: searchTerm}})
+  }
 }

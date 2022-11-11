@@ -1,13 +1,13 @@
-import { P } from "@angular/cdk/keycodes";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { firstValueFrom, BehaviorSubject, tap } from "rxjs";
-import { CreatePostPayload, Favourite, Post } from "src/app/models";
+import { firstValueFrom} from "rxjs";
+import { CreatePostPayload, Favourite, Post, Topics } from "src/app/models";
 
 const URL_GET_ALL_POSTS = "http://localhost:8080/api/posts"
 const URL_GET_POST_BY_ID = "http://localhost:8080/api/posts/"
 const URL_GET_ALL_POSTS_BY_USERNAME = "http://localhost:8080/api/posts/profile/"
 const URL_DELETE_POST_BY_USER_BY_POST_ID = "http://localhost:8080/api/posts/delete/"
+const URL_GET_ALL_TOPICS = "http://localhost:8080/api/posts/topics/"
 const URL_ADD_TO_FAVOURITE = "http://localhost:8080/api/fav"
 const URL_DELETE_FAVOURITE_BY_RECORD_ID = "http://localhost:8080/api/fav/delete/"
 
@@ -71,6 +71,12 @@ export class PostService {
 
         return firstValueFrom(
             this.http.delete(URL_DELETE_FAVOURITE_BY_RECORD_ID+recordId, { responseType: 'text' as 'json'})
+        )
+    }
+
+    getAllTopics() {
+        return firstValueFrom(
+            this.http.get<Topics>(URL_GET_ALL_TOPICS)
         )
     }
 

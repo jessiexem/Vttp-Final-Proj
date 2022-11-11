@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { PostService } from 'src/app/auth/shared/post.service';
+import { Topics } from 'src/app/models';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,16 +10,34 @@ import { Router } from '@angular/router';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  topics!: Topics
 
-  ngOnInit(): void {
+  constructor(private router: Router, private postSvc: PostService) { }
+
+  ngOnInit(): void {  
+    this.postSvc.getAllTopics()
+    .then(
+      result => {
+        console.log("getAllTopics result:",result)
+        this.topics = result
+      }
+    )
+    .catch(
+      error => {
+        console.error("getAllTopics error:",error)
+      }
+    )
   }
 
-  goToCreatePost() {
-    this.router.navigateByUrl('/create-post')
+  newSearchPost(searchTerm : string) {
+    this.router.navigate(['/'], {queryParams: {search: searchTerm}})
   }
 
-  goToQuizHome() {
-    this.router.navigateByUrl('/quizHome')
-  }
+  // goToCreatePost() {
+  //   this.router.navigateByUrl('/create-post')
+  // }
+
+  // goToQuizHome() {
+  //   this.router.navigateByUrl('/quizHome')
+  // }
 }

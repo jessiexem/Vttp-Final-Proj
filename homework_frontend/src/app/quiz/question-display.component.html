@@ -34,16 +34,16 @@
                     <h5>{{counter}} sec ⏱</h5>
                 </div>
             </div>
-            <div class="progress mb-3">
+            <div class="progress">
                 <!-- <span>{{progress}}</span> -->
                 <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
                 <!-- <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar> -->
             </div>
             <br>
             <div class="question">
-                <div class="card">
+                <!-- <div class="card"> -->
                     <h3>{{quizList[currentQuestion]?.question}}</h3>
-                </div>
+                <!-- </div> -->
             </div> 
             <ng-container class="options">
                 <mat-list *ngFor="let option of quizList[currentQuestion]?.optionsArray; let i = index;">
@@ -73,8 +73,8 @@
         </ng-container>
 
         <ng-container *ngIf="currentQuestion==10">
-            <div class="row d-flex justify-content-between">
-                <img style="width: 50%;" class="img-fluid col-sm-12 mx-auto" src="https://icon-library.com/images/celebration-icon-png/celebration-icon-png-7.jpg" alt="">
+            <div class="row ">
+                <img style="width: 45%;" src="https://icon-library.com/images/celebration-icon-png/celebration-icon-png-7.jpg" alt="">
                 <div class="result text-center col-md-6 col-sm-12">
                     <h3>Congratulations!! <br>You have completed the quiz. <br>Below is your result:</h3>
                     <p>Total Questions: {{quizList.length}}</p>

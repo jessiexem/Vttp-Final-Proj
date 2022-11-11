@@ -22,7 +22,7 @@
     /* color: #878A8C; */
     position: relative;
     border-radius: 4px;
-    padding:5px;
+    padding:20px;
     width: calc(100% - 70px);
     height: calc(100% - 70px);
 }
@@ -45,4 +45,26 @@ mat-icon {
 .delete-btn {
     float:right;
     margin-right: 10px
+}
+
+.rounded-circle {
+    border-radius: 50% !important;
+}
+
+.profile-image {
+    opacity: 1;
+    /* display: block; */
+    width: 40px; 
+    height: 40px;
+    /* transition: .5s ease;
+    backface-visibility: hidden; */
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.padding {
+    padding-right: 10px;
 }

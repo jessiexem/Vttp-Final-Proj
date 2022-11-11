@@ -18,19 +18,19 @@
     <!-- <h2 *ngIf="searchValue">Results for <b>{{searchValue}}</b></h2> -->
       <div *ngFor="let f of favourites">
         <div class="post">
-            <span>
-                <span>Posted by: {{f.postResponse.userName}} on {{f.postResponse.createdDate | date:'mediumDate'}}</span>
-                <span *ngFor="let t of f.postResponse.tags">
-                    <span>
-                        <button mat-stroked-button color="accent" style="margin-left:5px; margin-right:5px;" (click)="newSearchPost(t)">{{t}}</button>
-                    </span>
-                </span>                                
-            </span>
-            <span>
-                <button mat-stroked-button color="warn" class="delete-btn" (click)="deleteFav(f.recordId)">
-                    <mat-icon>delete</mat-icon>
-                </button>
-            </span>
+            <div class="post-header">
+                <div class="post-header-left">
+                    <div class="padding">
+                        <img class="profile-image img-account-profile rounded-circle" [src]="f.postResponse.posterDpImageUrl || f.postResponse.posterDpImageUrl?.length==0? 'https://jgclass.sgp1.digitaloceanspaces.com/display-pic/'+f.postResponse.posterDpImageUrl : 'http://bootdey.com/img/Content/avatar/avatar1.png'" alt="">
+                    </div>
+                    <span>{{f.postResponse.userName}} on {{f.postResponse.createdDate | date:'mediumDate'}}</span>                             
+                </div>
+                <div>
+                    <button mat-stroked-button color="warn" class="delete-btn" (click)="deleteFav(f.recordId)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
             <hr>
             <div>
                 <div>
@@ -39,14 +39,24 @@
                         <p [innerHtml]="f.postResponse.description"></p>
                     </div>
                     <div *ngIf="f.postResponse?.imageUrl">
-                        <img [src]='"https://jgclass.sgp1.digitaloceanspaces.com/day38/" + f.postResponse.imageUrl' alt="">
+                        <img class="post-image" [src]='"https://jgclass.sgp1.digitaloceanspaces.com/day38/" + f.postResponse.imageUrl' alt="">
                     </div>
                 </div>
                 <span>
                     <mat-icon>question_answer</mat-icon>
                     Comments ({{f.postResponse.commentCount}})
                 </span>
-                <button mat-raised-button color="primary" style="margin-left:5px; margin-bottom:5px; margin-top:5px;" type="submit" [routerLink]="['/view-post', f.postResponse.id]">Read Post</button>
+                <br>
+                <br>
+                <span>Tags:
+                    <span *ngFor="let t of f.postResponse.tags">
+                        <span>
+                            <button mat-stroked-button color="accent" style="margin-left:5px; margin-right:5px;" (click)="newSearchPost(t)">{{t}}</button>
+                        </span>
+                    </span>
+                </span>
+                <br>
+                <button mat-raised-button color="primary" style="margin-bottom:5px; margin-top:5px; float:right;" type="submit" [routerLink]="['/view-post', f.postResponse.id]">Read Post</button>
             </div>
         </div>
     </div>

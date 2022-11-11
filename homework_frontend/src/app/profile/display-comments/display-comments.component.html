@@ -24,7 +24,10 @@
                 </button>
             </span>
             <div class="header">
-                <h4 class="username">{{comment.username}}</h4>
+                <div class="header-left">
+                    <!-- <img class="profile-image img-account-profile rounded-circle mb-2 padding" [src]="comment.commenterDpImageUrl || comment.commenterDpImageUrl?.length==0? 'https://jgclass.sgp1.digitaloceanspaces.com/display-pic/'+comment.commenterDpImageUrl : 'http://bootdey.com/img/Content/avatar/avatar1.png'" alt=""> -->
+                    <h4>{{comment.username}}</h4>
+                </div>
 
                 <p>Answered on {{comment.createdDate | date:'mediumDate'}}</p>
                 <h2 class="post-title">{{comment.postName}}</h2>

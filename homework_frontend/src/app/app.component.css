@@ -5,3 +5,21 @@
 .full-height {
     height: 100vh;
 }
+
+.profile-image {
+    opacity: 1;
+    /* display: block; */
+    width: 40px; 
+    height: 40px;
+    /* transition: .5s ease;
+    backface-visibility: hidden; */
+    margin: 10px;
+}
+
+.rounded-circle {
+    border-radius: 50% !important;
+}
+
+footer {
+    margin-top:50px;
+}
