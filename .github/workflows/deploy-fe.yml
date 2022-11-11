@@ -1,4 +1,4 @@
-name: Azure App Service CI
+name: Deploy FE to Azure
 
 on:
   push:
