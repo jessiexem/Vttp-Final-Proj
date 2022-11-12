@@ -76,8 +76,8 @@ body{margin-top:20px;
 .profile-image {
     opacity: 1;
     /* display: block; */
-    width: 150px; 
-    height: 150px;
+    width: 200px; 
+    height: 200px;
     /* transition: .5s ease;
     backface-visibility: hidden; */
   }
@@ -107,5 +107,5 @@ body{margin-top:20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 200px;
+    height: 250px;
   }

@@ -46,15 +46,15 @@
             <form [formGroup]="commentForm" (ngSubmit)="createComment()">
                 <div class="comment-button">
                     <div class="comment-box">
-                    <mat-form-field appearance="outline" style="width: 500px;">
-                        <mat-label>Add a comment...</mat-label>
-                        <textarea matInput cdkTextareaAutosize
-                        cdkAutosizeMinRows="1"
-                        cdkAutosizeMaxRows="5"
-                        formControlName="text"></textarea>
-                    </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Add a comment...</mat-label>
+                            <textarea matInput 
+                            cdkTextareaAutosize
+
+                            formControlName="text"></textarea>
+                        </mat-form-field>
                     </div>
-                    <div class="btn-holder" >
+                    <div class="btn-holder">
                         <button mat-raised-button color="primary" type="submit">Add comment</button>
                     </div>
                 </div>

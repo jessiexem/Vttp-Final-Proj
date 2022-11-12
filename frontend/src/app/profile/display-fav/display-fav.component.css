@@ -1,3 +1,13 @@
+.ancestor{
+    display: flex;
+    flex-direction: row;   
+    width: 100% auto;
+    border: 0 auto;
+    justify-content: space-between;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
 .post{
     --post-line-color: #ccc;    
     border: 1px solid #ccc;
@@ -23,9 +33,13 @@
 .display-post {
     height:800px;
     overflow-y: scroll;
-    width: 70%;
-    padding-left: 50px;
-    margin-bottom: 50px;
+    /* width: 70%; */
+    /* padding-left: 50px;
+    margin-bottom: 50px; */
+}
+
+.right{
+    width: 65%;
 }
 
 .header {
@@ -72,3 +86,6 @@
     object-fit: contain;
 }
 
+.sidebar {
+    width: 30%;
+}

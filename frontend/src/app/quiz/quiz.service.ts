@@ -4,7 +4,7 @@ import { firstValueFrom, BehaviorSubject, tap} from "rxjs";
 import { Quiz, QuizRequest } from "../models";
 
 //const BASE_URL = "http://localhost:8080"
-const BASE_URL = "https://askit.azurewebsites.net/"
+const BASE_URL = "https://askit.azurewebsites.net"
 
 const URL_GET_QUIZ = BASE_URL+"/api/quiz/"
 

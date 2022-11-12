@@ -110,7 +110,7 @@ public class Queries {
             "delete from favourite where post_id=?";
 
     public static final String SQL_COUNT_FAV_RECORDS_BY_POST_ID =
-            "select count(record_id) as count from favourite where post_id=?;";
+            "select count(record_id) as count from favourite where post_id=? and fav_user_id=?;";
 
     public static final String SQL_UPDATE_USER_PROFILE_PIC =
             "update user set dp_image_url = ? where user_id=?;";

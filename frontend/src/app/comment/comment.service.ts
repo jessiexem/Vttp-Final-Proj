@@ -4,7 +4,7 @@ import { firstValueFrom } from "rxjs";
 import { Comment, CommentPayload, CommentSummary } from "src/app/models";
 
 //const BASE_URL = "http://localhost:8080"
-const BASE_URL = "https://askit.azurewebsites.net/"
+const BASE_URL = "https://askit.azurewebsites.net"
 
 const URL_GET_ALL_COMMENTS_BY_PID = BASE_URL+"/api/comments"
 const URL_POST_COMMENT = BASE_URL+"/api/comments"

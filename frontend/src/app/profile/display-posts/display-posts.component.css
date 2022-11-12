@@ -1,3 +1,13 @@
+.ancestor{
+    display: flex;
+    flex-direction: row;   
+    width: 100% auto;
+    border: 0 auto;
+    justify-content: space-between;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
 .post{
     --post-line-color: #ccc;    
     border: 1px solid #ccc;
@@ -9,8 +19,8 @@
     position: relative;
     border-radius: 4px;
     padding:20px;
-    width: calc(100% - 70px);
-    height: calc(100% - 70px);
+    /* width: calc(100% - 70px);
+    height: calc(100% - 70px); */
 }
 
 .post-title{
@@ -20,12 +30,16 @@
     color: black;
 }
 
+.right{
+    width: 65%;
+}
+
 .display-post {
     height:800px;
     overflow-y: scroll;
-    width: 70%;
-    padding-left: 50px;
-    margin-bottom: 50px;
+    /* width: 60%; */
+    /* padding-left: 50px; */
+    /* margin-bottom: 30px; */
 }
 
 .header {
@@ -70,4 +84,8 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+.sidebar {
+    width: 30%;
 }

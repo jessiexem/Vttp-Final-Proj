@@ -1,5 +1,5 @@
 <div class="sidebar" style="width: 100%; height:50%">
-    <img src="https://www.redditstatic.com/desktop2x/img/id-cards/home-banner@2x.png">
+    <img class="reddit-image" src="https://www.redditstatic.com/desktop2x/img/id-cards/home-banner@2x.png">
     <!-- <div style="text-align: center; font-size: 1em;">Welcome to Homework Nerd home page. Come here to
         post a question now!</div>
     <div style="text-align: center">
@@ -20,9 +20,11 @@
         <!-- <img src="https://www.redditstatic.com/desktop2x/img/id-cards/home-banner@2x.png"> -->
         <div style="text-align: center; font-size: 1em;">Look at what others are posting about:</div>
         <hr/>
-        <mat-list role="list" *ngFor="let t of topics?.tags">
-            <mat-list-item role="listitem" (click)="newSearchPost(t)" >{{t}}</mat-list-item>
-        </mat-list>
+        <div class="topics">
+            <mat-list role="list" *ngFor="let t of topics?.tags">
+                <mat-list-item role="listitem" (click)="newSearchPost(t)" >{{t}}</mat-list-item>
+            </mat-list>
+        </div>
     </div>
 </div>
 

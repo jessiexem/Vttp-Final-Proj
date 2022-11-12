@@ -74,8 +74,10 @@ public class AuthService {
         mailService.sendMail(new NotificationEmail(
             "Please activate your Account",
             user.getEmail(),
-            "Thank you for signing up to HomeworkNerd. Please click on the url to activate your account: "+
-            "http://localhost:8080/api/auth/accountVerification/"+ token ));
+                "Thank you for signing up to HomeworkNerd. Please click on the url to activate your account: "+
+                        "https://askit.azurewebsites.net/api/auth/accountVerification/"+ token ));
+//            "Thank you for signing up to HomeworkNerd. Please click on the url to activate your account: "+
+//            "http://localhost:8080/api/auth/accountVerification/"+ token ));
     }
 
     private String generateVerificationToken(User user) {

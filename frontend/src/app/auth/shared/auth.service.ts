@@ -7,7 +7,7 @@ import { LoginRequest, LoginResponse, ProfilePicResponse, SignupRequest } from "
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 //const BASE_URL = "http://localhost:8080"
-const BASE_URL = "https://askit.azurewebsites.net/"
+const BASE_URL = "https://askit.azurewebsites.net"
 
 const URL_SIGNUP = BASE_URL+"/api/auth/signup"
 const URL_LOGIN = BASE_URL+"/api/auth/login"

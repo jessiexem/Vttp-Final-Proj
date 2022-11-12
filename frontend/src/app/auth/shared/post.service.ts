@@ -4,7 +4,7 @@ import { firstValueFrom} from "rxjs";
 import { CreatePostPayload, Favourite, Post, Topics } from "src/app/models";
 
 //const BASE_URL = "http://localhost:8080"
-const BASE_URL = "https://askit.azurewebsites.net/"
+const BASE_URL = "https://askit.azurewebsites.net"
 
 const URL_GET_ALL_POSTS = BASE_URL+"/api/posts"
 const URL_GET_POST_BY_ID = BASE_URL+"/api/posts/"
