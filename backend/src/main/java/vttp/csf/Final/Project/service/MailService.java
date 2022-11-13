@@ -27,7 +27,7 @@ public class MailService {
     public void sendMail(vttp.csf.Final.Project.model.NotificationEmail notificationEmail) {
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-            messageHelper.setFrom("homeworkhelper@email.com");
+            messageHelper.setFrom("socialIt@email.com");
             messageHelper.setTo(notificationEmail.getRecipient());
             messageHelper.setSubject(notificationEmail.getSubject());
             messageHelper.setText(notificationEmail.getBody());

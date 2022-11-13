@@ -100,7 +100,9 @@ public class PostService {
     public List<PostResponse> getAllPosts(String searchTerm) {
         Optional<List<Post>> optList = postRepo.getAllPosts(searchTerm);
         if (optList.isEmpty()) {
-            throw new PostNotFoundException("No posts found");
+            //throw new PostNotFoundException("No posts found");
+            System.out.println("No posts related to search term: "+searchTerm);
+            return null;
         } else {
             List<Post> postList = optList.get();
             List<PostResponse> postResponseList =

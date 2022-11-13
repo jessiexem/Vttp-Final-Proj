@@ -3,7 +3,7 @@ name: Deploy FE to Azure
 on:
   push:
     branches:
-      - master
+      - release
 
 jobs:
   build:

@@ -93,7 +93,9 @@ export class QuestionDisplayComponent implements OnInit {
 
     console.log("is it correct?",this.quizList[currentQno-1].answerArray[optionIdx])
 
-    if (this.quizList[currentQno-1].answerArray[optionIdx] === "true") {
+    if (this.quizList[currentQno-1].answerArray[optionIdx]) {
+    //if (this.quizList[currentQno-1].answerArray[optionIdx] == this.quizList[currentQno-1].answerArray[optionIdx]) {
+      console.log("Correct!")
       this.points += 10;
       this.correctAnswer++;
       setTimeout(() => {
@@ -104,13 +106,16 @@ export class QuestionDisplayComponent implements OnInit {
 
 
     } else {
+      console.log("goes to else")
       setTimeout(() => {
+        console.log("timeout")
         this.currentQuestion++;
         this.inCorrectAnswer++;
         this.resetCounter();
         this.getProgressPercent();
       }, 1000);
 
+      console.log("deducting 10")
       this.points -= 10;
     }
   }

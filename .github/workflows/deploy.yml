@@ -3,7 +3,7 @@ name: Deploy BE to Azure
 on:
   push:
     branches:
-      - master
+      - release
 
 jobs:
   build:

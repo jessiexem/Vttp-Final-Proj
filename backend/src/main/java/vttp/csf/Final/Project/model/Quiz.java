@@ -17,7 +17,7 @@ public class Quiz {
 
     private String question;
     private List<String> optionsArray;
-    List<String> answerArray;
+    List<Boolean> answerArray;
     private String explanation;
     private String category;
 
@@ -37,16 +37,19 @@ public class Quiz {
                     JsonNode answers = v.get("answers");
 
                     List<String> options = new ArrayList<>();
-                    List<String> answerArr = new ArrayList<>();
+                    List<Boolean> answerArr = new ArrayList<>();
                     for (String opt : optionsArr) {
-                        if (answers.get("answer_"+opt) != null) {
-                            options.add(answers.get("answer_"+opt).toString());
+                        if (!answers.get("answer_"+opt).toString().equalsIgnoreCase( "null")) {
+                                options.add(answers.get("answer_"+opt).toString());
                         }
                     }
                     quiz.setOptionsArray(options);
                     JsonNode correctAnswers = v.get("correct_answers");
                     for (int i =0; i< options.size(); i++ ){
-                        answerArr.add(correctAnswers.get("answer_"+ optionsArr[i] + "_correct").toString());
+                        String answer = correctAnswers.get("answer_"+ optionsArr[i] + "_correct").toString();
+                        String answerNoQuote = answer.replaceAll("\"", "");
+
+                        answerArr.add(Boolean.valueOf(answerNoQuote));
                     }
                     quiz.setAnswerArray(answerArr);
                     if (v.get("explanation") == null) {
@@ -63,47 +66,5 @@ public class Quiz {
 
         return quizList;
     }
-
-//    public static List<Quiz> createBackup (String json, String category) {
-//        InputStream is = new ByteArrayInputStream(json.getBytes());
-//        JsonReader reader = Json.createReader(is);
-//        JsonArray data = reader.readArray();
-//
-//        List<Quiz> quizList = new ArrayList<>();
-//        System.out.println(data);
-//        data.stream().map(v -> (JsonObject) v)
-//                .forEach(v-> {
-//                    try {
-//                        Quiz quiz = new Quiz();
-//                        quiz.setCategory(category);
-//                        quiz.setQuestion(v.getString("question"));
-//                        JsonObject answers = v.getJsonObject("answers");
-//
-//                        List<String> options = new ArrayList<>();
-//                        List<String> answerArr = new ArrayList<>();
-//                        for (String opt : optionsArr) {
-//                            if (!answers.isNull("answer_"+opt)) {
-//                                options.add(answers.getString("answer_"+opt));
-//                            }
-//                        }
-//                        quiz.setOptionsArray(options);
-//                        JsonObject correctAnswers = v.getJsonObject("correct_answers");
-//                        for (int i =0; i< options.size(); i++ ){
-//                            answerArr.add(correctAnswers.getString("answer_"+ optionsArr[i] + "_correct"));
-//                        }
-//                        quiz.setAnswerArray(answerArr);
-//                        if (v.isNull("explanation")) {
-//                            quiz.setExplanation("nil");
-//                        } else {
-//                            quiz.setExplanation(v.getJsonString("explanation").toString());
-//                        }
-//                        quizList.add(quiz);
-//                    } catch (Exception e) {
-//                        throw new RuntimeException("\">>>> QuizService - getQuiz: Error creating List<Quiz>\" +", e);
-//                    }
-//                });
-//
-//        return quizList;
-//    }
 
 }
