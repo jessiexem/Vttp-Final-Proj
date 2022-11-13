@@ -7,11 +7,14 @@
 </div>
 
 <div class="noResultsHolder" *ngIf="!favourites">
-    <mat-card class="right">
+    <mat-card class="right no-result-mat-card">
         <mat-card-content>
             <p><em>You haven't added any favourite yet.</em></p>
         </mat-card-content>
     </mat-card>
+    <div class="sidebar-no-fav" *ngIf="!favourites">
+        <app-sidebar></app-sidebar>
+    </div>
 </div>
 
 <div class="ancestor">
@@ -64,7 +67,9 @@
             </div>
         </div>
     </div>
-    <div class="sidebar">
+    <div class="sidebar" *ngIf="favourites">
         <app-sidebar></app-sidebar>
     </div>
+
+
 </div>

@@ -7,11 +7,14 @@
 </div>
 
 <div class="noResultsHolder" *ngIf="!posts">
-    <mat-card>
+    <mat-card class="right no-result-mat-card">
         <mat-card-content>
             <p><em>You haven't posted any content yet.</em></p>
         </mat-card-content>
     </mat-card>
+    <div class="sidebar-no-fav" *ngIf="!favourites">
+        <app-sidebar></app-sidebar>
+    </div>
 </div>
 
 <div class="ancestor">
@@ -63,7 +66,7 @@
             </div>
         </div>
     </div>
-    <div class="sidebar">
+    <div class="sidebar" *ngIf="posts">
         <app-sidebar></app-sidebar>
     </div>
 </div>

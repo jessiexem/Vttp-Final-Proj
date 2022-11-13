@@ -100,8 +100,8 @@ public class Queries {
     public static final String SQL_DELETE_FAV_BY_RECORD_ID =
             "delete from favourite where record_id=?";
 
-    public static final String SQL_SELECT_FAV_BY_POST_ID =
-            "select count(record_id) as count from favourite where post_id=?";
+    public static final String SQL_SELECT_FAV_BY_POST_ID_AND_USER_ID =
+            "select count(record_id) as count from favourite where post_id=? and fav_user_id=?";
 
     public static final String SQL_SELECT_ALL_FAV_BY_USER_ID =
             "select * from favourite inner join post on favourite.post_id=post.pid inner join user on user.user_id =post.poster_user_id where favourite.fav_user_id =?";
@@ -110,7 +110,7 @@ public class Queries {
             "delete from favourite where post_id=?";
 
     public static final String SQL_COUNT_FAV_RECORDS_BY_POST_ID =
-            "select count(record_id) as count from favourite where post_id=? and fav_user_id=?;";
+            "select count(record_id) as count from favourite where post_id=?;";
 
     public static final String SQL_UPDATE_USER_PROFILE_PIC =
             "update user set dp_image_url = ? where user_id=?;";

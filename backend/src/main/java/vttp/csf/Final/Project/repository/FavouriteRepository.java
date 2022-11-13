@@ -29,7 +29,7 @@ public class FavouriteRepository {
 
     public Integer addFavouriteByUser (Long postId, int user_id) {
 
-        Integer recordCount = countGetFavourite(postId, user_id);
+        Integer recordCount = countGetFavouriteByUser(postId, user_id);
         if(recordCount==0) {
             KeyHolder keyHolder = new GeneratedKeyHolder();
             template.update(conn -> {
@@ -73,8 +73,8 @@ public class FavouriteRepository {
         return isDeleted>0;
     }
 
-    public Integer countGetFavourite(Long postId, int userId) {
-        final SqlRowSet rs = template.queryForRowSet(SQL_SELECT_FAV_BY_POST_ID,postId);
+    public Integer countGetFavouriteByUser(Long postId, int userId) {
+        final SqlRowSet rs = template.queryForRowSet(SQL_SELECT_FAV_BY_POST_ID_AND_USER_ID,postId, userId);
         if (!rs.first()) {
             return 0;
         }

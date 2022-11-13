@@ -129,6 +129,7 @@ public class PostService {
 
     @Transactional(rollbackFor = HomeworkNerdException.class)
     public void deletePostByUserByPostId(Long postId) {
+
         boolean isVotesDeleted = voteRepo.deleteVotesByPostId(postId);
 
         boolean isCommentsDeleted = commentRepo.deleteCommentsByPostId(postId);

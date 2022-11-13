@@ -89,3 +89,20 @@
 .sidebar {
     width: 30%;
 }
+
+.noResultsHolder {
+    display: flex;
+    width: 100% auto;
+    justify-content: space-between;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.sidebar-no-fav {
+    width: 30%;
+    height:50%
+}
+
+.no-result-mat-card {
+    height: 50px;
+}

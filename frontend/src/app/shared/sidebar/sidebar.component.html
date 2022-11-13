@@ -1,24 +1,9 @@
 <div class="sidebar" style="width: 100%; height:50%">
     <img class="reddit-image" src="https://www.redditstatic.com/desktop2x/img/id-cards/home-banner@2x.png">
-    <!-- <div style="text-align: center; font-size: 1em;">Welcome to Homework Nerd home page. Come here to
-        post a question now!</div>
-    <div style="text-align: center">
-        <button mat-raised-button color="accent" (click)="goToCreatePost()">Create Post</button>
-    </div>
-    <br> -->
-
-    <!-- <div>
-        <img src="https://www.redditstatic.com/desktop2x/img/id-cards/home-banner@2x.png">
-        <div style="text-align: center; font-size: 1em;">Test your knowledge now!</div>
-        <div style="text-align: center">
-            <button mat-raised-button color="primary" (click)="goToQuizHome()">Try a Quiz!</button>
-        </div>
-    </div>
-    <br> -->
 
     <div>
         <!-- <img src="https://www.redditstatic.com/desktop2x/img/id-cards/home-banner@2x.png"> -->
-        <div style="text-align: center; font-size: 1em;">Look at what others are posting about:</div>
+        <div style="text-align: center; font-size: 1em;">Look at what others are posting about!</div>
         <hr/>
         <div class="topics">
             <mat-list role="list" *ngFor="let t of topics?.tags">
@@ -27,15 +12,3 @@
         </div>
     </div>
 </div>
-
-<!-- <div class="sidebar-view-topic">
-    <div style="color: black; font-weight: bold">Browse Your Favourite Topics</div>
-    <hr />
-    <span *ngFor="let subreddit of subreddits">
-        <span class="subreddit-text"><a href="/view-subreddit/{{subreddit.id}}">{{subreddit.name}}</a></span>
-        <hr />
-    </span>
-    <div style="text-align: center" *ngIf="displayViewAll">
-        <a style="font-weight: bold" routerLink="/list-subreddits">View All</a>
-    </div>
-</div> -->
