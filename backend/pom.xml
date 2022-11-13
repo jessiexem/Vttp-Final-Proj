@@ -71,10 +71,15 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.glassfish</groupId>-->
+<!--			<artifactId>jakarta.json</artifactId>-->
+<!--			<version>2.0.1</version>-->
+<!--		</dependency>-->
 		<dependency>
-			<groupId>org.glassfish</groupId>
-			<artifactId>jakarta.json</artifactId>
-			<version>2.0.1</version>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.13.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -152,39 +157,39 @@
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<filters>
-						<filter>
-							<artifact>org.glassfish:jakarta.json</artifact>
-							<includes>
-								<include>org/glassfish/json/**</include>
-							</includes>
-						</filter>
-					</filters>
-					<artifactSet>
-						<includes>
-							<include>org.glassfish:jakarta.json</include>
-						</includes>
-					</artifactSet>
-					<relocations>
-						<relocation>
-							<pattern>org.glassfish.json</pattern>
-							<shadedPattern>jakarta.org.glassfish.json</shadedPattern>
-						</relocation>
-					</relocations>
-				</configuration>
-			</plugin>
+<!--			<plugin>-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<artifactId>maven-shade-plugin</artifactId>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<phase>package</phase>-->
+<!--						<goals>-->
+<!--							<goal>shade</goal>-->
+<!--						</goals>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--				<configuration>-->
+<!--					<filters>-->
+<!--						<filter>-->
+<!--							<artifact>org.glassfish:jakarta.json</artifact>-->
+<!--							<includes>-->
+<!--								<include>org/glassfish/json/**</include>-->
+<!--							</includes>-->
+<!--						</filter>-->
+<!--					</filters>-->
+<!--					<artifactSet>-->
+<!--						<includes>-->
+<!--							<include>org.glassfish:jakarta.json</include>-->
+<!--						</includes>-->
+<!--					</artifactSet>-->
+<!--					<relocations>-->
+<!--						<relocation>-->
+<!--							<pattern>org.glassfish.json</pattern>-->
+<!--							<shadedPattern>jakarta.org.glassfish.json</shadedPattern>-->
+<!--						</relocation>-->
+<!--					</relocations>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
 		</plugins>
 	</build>
 
