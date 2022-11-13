@@ -61,7 +61,7 @@ public class Quiz {
                         }
                         quizList.add(quiz);
                     } catch (Exception e) {
-                        throw new RuntimeException();
+                        throw new RuntimeException("\">>>> QuizService - getQuiz: Error creating List<Quiz>\" +", e);
                     }
                 });
 

@@ -26,6 +26,7 @@ public class QuizController {
 
     @PostMapping
     public ResponseEntity<List<Quiz>> takeQuiz(@RequestBody QuizRequest quizRequest) {
+        logger.info("in takeQuiz controller.");
         Optional<List<Quiz>> opt = quizService.getQuiz(quizRequest.getCategory(), quizRequest.getDifficulty());
         if (opt.isEmpty()) {
             return ResponseEntity.status(HttpStatus.CREATED).body(null);

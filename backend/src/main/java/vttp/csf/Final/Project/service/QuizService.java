@@ -41,13 +41,12 @@ public class QuizService {
 
         try {
             ResponseEntity<String> resp = template.exchange(req, String.class);
-            logger.info(">>>>QuizService getQuiz: "+resp.getBody());
+            System.out.println(">>>>QuizService getQuiz: "+resp.getBody());
             List<Quiz> quizList = Quiz.create(resp.getBody(), category);
             return Optional.of(quizList);
 
         } catch (Exception e) {
-            logger.severe(">>>> QuizService - getQuiz: Error creating List<Quiz>");
-            e.printStackTrace();
+            System.out.println(">>>> QuizService - getQuiz: Error creating List<Quiz>" + " " + e.getMessage());
         }
         return Optional.empty();
     }
