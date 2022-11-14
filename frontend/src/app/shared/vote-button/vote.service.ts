@@ -14,8 +14,8 @@ export class VoteService {
     constructor(private http: HttpClient) {}
 
     voteComment(VotePayload : VotePayload) {
-        return firstValueFrom( 
-            this.http.post(URL_VOTE_COMMENT, VotePayload)
+        return firstValueFrom(
+            this.http.post(URL_VOTE_COMMENT, VotePayload, { responseType: 'text' as 'json'})
         )
     }
 }

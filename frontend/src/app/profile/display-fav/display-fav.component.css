@@ -106,3 +106,8 @@
 .no-result-mat-card {
     height: 50px;
 }
+
+.orange-btn {
+    background-color: #ff7B00;
+    color: white
+}

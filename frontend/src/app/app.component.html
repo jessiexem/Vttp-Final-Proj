@@ -12,9 +12,16 @@
     <title>SocialIT</title>
   </head>
   <body>
-<mat-toolbar color="primary">
-    <mat-icon (click)="toggleSidebar()">groups</mat-icon>
-    <span style="padding-left: 10px;"> SocialIT</span>
+<mat-toolbar>
+  <!-- <mat-toolbar color="primary"> -->
+    <span *ngIf="isLoggedIn">
+      <mat-icon class="text-color-white" (click)="toggleSidebar()">groups</mat-icon>
+    </span>
+    <span *ngIf="!isLoggedIn">
+      <mat-icon class="text-color-white">groups</mat-icon>
+    </span>
+    
+    <span class="text-color-white" style="padding-left: 10px;"> SocialIT</span>
     <span class="example-spacer"></span>
     <div *ngIf="!isLoggedIn">
         <button mat-button [matMenuTriggerFor]="menu">
@@ -28,8 +35,7 @@
     <div *ngIf="isLoggedIn">
         <button mat-button [matMenuTriggerFor]="menu">
             <img class="profile-image img-account-profile rounded-circle mb-2" [src]="url || url?.length==0? 'https://jgclass.sgp1.digitaloceanspaces.com/display-pic/'+url : 'http://bootdey.com/img/Content/avatar/avatar1.png'" alt="">
-            <!-- <mat-icon>person</mat-icon> -->
-            <span>{{username}}</span>
+            <span class="text-color-white">{{username}}</span>
         </button>
         <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="logout()"> Logout </button>

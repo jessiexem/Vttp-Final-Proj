@@ -3,13 +3,7 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Verdana, Geneva, Tahoma, sans-serif; }
 
-/* mat-form-field {
-    width: 100vw;
-  } */
-
-  .mat-grid-tile .mat-figure {
+.mat-grid-tile .mat-figure {
     justify-content: flex-start !important ;
     align-items: flex-start !important;
- }
-
-
+}

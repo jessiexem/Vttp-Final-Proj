@@ -40,7 +40,7 @@
 }
 
 .header{
-    color: blue;
+    color: grey;
     display: flex;
     align-items: center;
     padding:5px;
@@ -170,4 +170,9 @@
 
 mat-form-field {
     width: 100%;
+}
+
+.orange-btn {
+    background-color: #ff7B00;
+    color: white
 }

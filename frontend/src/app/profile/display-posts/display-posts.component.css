@@ -111,3 +111,8 @@
 .display-post::-webkit-scrollbar {
     display: none;
 }
+
+.orange-btn {
+    background-color: #ff7B00;
+    color: white
+}

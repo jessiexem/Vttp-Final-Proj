@@ -24,10 +24,10 @@
                 </span><br>
             </div>
             <!-- <button mat-raised-button color="primary" style="margin-right:5px;">login</button> -->
-            <button mat-raised-button color="accent" style="margin-right:5px; margin-bottom:5px;" type="submit">Sign in</button>
+            <button mat-raised-button class="black-btn" style="margin-right:5px; margin-bottom:5px;" type="submit">Sign in</button>
             
         </form>
-        <p>Dont't have an account? <a [routerLink]="['/signup']">Sign up</a></p>
+        <p style="margin-top: 10px;">Dont't have an account? <a [routerLink]="['/signup']">Sign up</a></p>
 
         <div class="login-failed" *ngIf='this.isError'>
             <p class="login-failed-text">

@@ -23,3 +23,12 @@
 footer {
     margin-top:50px;
 }
+
+mat-toolbar {
+    background-color: #ff7B00
+}
+
+.text-color-white {
+    color:white
+}
+

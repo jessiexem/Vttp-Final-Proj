@@ -30,7 +30,6 @@ export class AppComponent {
     this.isLoggedIn = this.authService.isLoggedIn();
     this.username = this.authService.getUserName();
     
-    //this.sub$ = this.authService.dpUrl.subscribe((data: string) => this.url = data)
     this.authService.dpUrl.subscribe((data: string) => this.url = data)
     this.url = this.localStorage.retrieve('dpUrl')
 

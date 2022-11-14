@@ -38,10 +38,10 @@ const appRoutes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'view-post/:id', component: ViewPostComponent, canActivate: [AuthGuard] },
-  { path: 'create-post', component: CreatePostComponent, canActivate: [AuthGuard] },
-  { path: 'quizHome', component: QuizWelcomeComponent, canActivate: [AuthGuard] },
-  { path: 'question', component: QuestionDisplayComponent, canActivate: [AuthGuard] },
+  { path: 'view-post/:id', component: ViewPostComponent, canActivate: [AuthGuard]},
+  { path: 'create-post', component: CreatePostComponent, canActivate: [AuthGuard]},
+  { path: 'quizHome', component: QuizWelcomeComponent, canActivate: [AuthGuard]},
+  { path: 'question', component: QuestionDisplayComponent, canActivate: [AuthGuard]},
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/',pathMatch: 'full'}
 ]
@@ -68,7 +68,7 @@ const appRoutes: Routes = [
     BrowserModule, FormsModule, ReactiveFormsModule, 
     BrowserAnimationsModule, MaterialModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes, { useHash: true}),
+    RouterModule.forRoot(appRoutes, {useHash: true}),
     NgxWebstorageModule.forRoot(),
     ToastrModule.forRoot(),
     FontAwesomeModule,

@@ -55,7 +55,7 @@
                         </mat-form-field>
                     </div>
                     <div class="btn-holder">
-                        <button mat-raised-button color="primary" type="submit">Add comment</button>
+                        <button mat-raised-button class="orange-btn" type="submit">Add comment</button>
                     </div>
                 </div>
             </form>
@@ -79,7 +79,6 @@
                     <div class="header">
                         <img class="profile-image img-account-profile rounded-circle" [src]="c.commenterDpImageUrl || c.commenterDpImageUrl?.length==0? 'https://jgclass.sgp1.digitaloceanspaces.com/display-pic/'+c.commenterDpImageUrl : 'http://bootdey.com/img/Content/avatar/avatar1.png'" alt="">
                         <span class="username"><b>{{c.username}}</b> answered on {{c.createdDate | date:'mediumDate'}} </span>
-                        <!-- <span>answered on {{c.createdDate | date:'mediumDate'}}</span> -->
                     </div>
                     <br>
                     <div>

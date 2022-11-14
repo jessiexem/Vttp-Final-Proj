@@ -21,7 +21,7 @@
                     <div class="padding">
                         <img class="profile-image img-account-profile rounded-circle" [src]="p.posterDpImageUrl || p.posterDpImageUrl?.length==0? 'https://jgclass.sgp1.digitaloceanspaces.com/display-pic/'+p.posterDpImageUrl : 'http://bootdey.com/img/Content/avatar/avatar1.png'" alt="">                           
                     </div>
-                    <span class="padding">{{p.userName}}</span>
+                    <span class="padding">{{p.userName}} on {{p?.createdDate | date:'mediumDate'}}</span>
 
                 </div>
                 <hr>
@@ -47,12 +47,12 @@
                         </span>
                     </span>
                     <br>
-                    <button mat-raised-button color="primary" style="margin-bottom:5px; margin-top:5px; float: right;" type="submit" (click)="goToPost(p.id)">Read Post</button>
+                    <button mat-raised-button class="orange-btn" style="margin-bottom:5px; margin-top:5px; float: right;" type="submit" (click)="goToPost(p.id)">Read Post</button>
                 </div>
             </div>
         </div>
     </div>
     <div class="btn-holder">
-        <button mat-raised-button color="primary" style="float: right;" (click)="newSearchPost('')">Reset Search</button>
+        <button mat-raised-button class="orange-btn" style="float: right;" (click)="newSearchPost('')">Reset Search</button>
     </div>
 </div>

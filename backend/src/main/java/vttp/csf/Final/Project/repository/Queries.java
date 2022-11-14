@@ -33,15 +33,13 @@ public class Queries {
             "select * from post inner join user on user.user_id = post.poster_user_id where pid = ?";
 
     public static final String SQL_SELECT_ALL_POSTS =
-            //"select * from post inner join user on user.user_id = post.user_id;";
-        "select * from post inner join user on user.user_id = post.poster_user_id where tags like CONCAT('%',?,'%') OR description like CONCAT('%',?,'%') OR post_name like CONCAT('%',?,'%');";
+        "select * from post inner join user on user.user_id = post.poster_user_id where tags like CONCAT('%',?,'%') OR description like CONCAT('%',?,'%') OR post_name like CONCAT('%',?,'%') order by p_created_date desc;";
 
     public static final String SQL_SELECT_ALL_POSTS_BY_USER_ID =
             "select * from post inner join user on user.user_id = post.poster_user_id where post.poster_user_id=?;";
 
     public static final String SQL_INSERT_COMMENT =
         "insert into comment(text, vote_count, user_id, post_id) values (?,?,?,?);";
-        //"insert into comment(text, user_id, post_id) values (?,?,?);";
 
     public static final String SQL_FIND_ALL_COMMENTS_BY_POST_ID =
             "select * from comment inner join user on user.user_id = comment.user_id \n" +

@@ -86,3 +86,8 @@ mat-card {
 .padding {
     padding-right: 10px;
 }
+
+.orange-btn {
+    background-color: #ff7B00;
+    color: white
+}

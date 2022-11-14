@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vttp.csf.Final.Project.dto.VoteDto;
+import vttp.csf.Final.Project.exception.HomeworkNerdException;
 import vttp.csf.Final.Project.service.VoteService;
 
 @RestController
@@ -19,7 +20,11 @@ public class VoteController {
 
     @PostMapping
     public ResponseEntity<String> vote (@RequestBody VoteDto voteDto) {
-        voteSvc.saveVote(voteDto);
+        try {
+            voteSvc.saveVote(voteDto);
+        } catch (HomeworkNerdException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("Vote has been saved for comment:"+voteDto.getCommentId());
     }

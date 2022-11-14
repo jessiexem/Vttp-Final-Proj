@@ -8,6 +8,7 @@ import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { VoteService } from '../shared/vote-button/vote.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-view-post',
@@ -22,7 +23,6 @@ export class ViewPostComponent implements OnInit {
   comments!: Comment[]
   commentForm!: FormGroup
 
-  // isLoggedIn!: boolean;
   votePayload!: VotePayload
   faArrowUp = faArrowUp
   faArrowDown = faArrowDown
@@ -39,7 +39,6 @@ export class ViewPostComponent implements OnInit {
       text: '',
       postId: this.postId
     }
-    //this.authSvc.onLoggedIn.subscribe((data: boolean) => this.isLoggedIn = data);
   }
 
   ngOnInit(): void {
@@ -59,7 +58,6 @@ export class ViewPostComponent implements OnInit {
     .catch(
       error => {
         console.error(">>>> View Post: performGetPostById error: ", error)
-        //alert(`>>> performGetPostById error: ${JSON.stringify(error)}`)
       }
     )
   }
@@ -75,7 +73,6 @@ export class ViewPostComponent implements OnInit {
     .catch(
       error => {
         console.error(">>>> View Post: getCommentsByPid error", error)
-        //alert(`>>> View Post: getCommentsByPid error: ${JSON.stringify(error)}`)
       }
     )
   }
@@ -95,17 +92,23 @@ export class ViewPostComponent implements OnInit {
   private vote(cid: number) {
     this.votePayload.commentId = cid
     this.voteSvc.voteComment(this.votePayload)
-    .catch(error => {
-      if (error.error.message?.length > 0) {
-        this.toastr.error(error.error.message)
-      }
-    })
+    .then(
+      result => {
+        console.log("View post - vote: ",result)
 
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(
-      () => {
-        this.router.navigate(['/view-post/'+this.postId])
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(
+          () => {
+            this.router.navigate(['/view-post/'+this.postId])
+          }
+        )
       }
     )
+    .catch(error => {
+      console.log(error)
+      if (error.error?.length > 0) {
+        this.toastr.error(error.error)
+      }
+    })
 
   }
 
@@ -123,6 +126,11 @@ export class ViewPostComponent implements OnInit {
     .then(
       result => {
         console.log("View Post: createComment result:", result)
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(
+          () => {
+            this.router.navigate(['/view-post/'+this.postId])
+          }
+        )
       }
     )
     .catch(
@@ -131,7 +139,7 @@ export class ViewPostComponent implements OnInit {
       }
     )
     this.commentForm.reset()
-    this.getCommentsByPid()
+
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(
       () => {
         this.router.navigate(['/view-post/'+this.postId])

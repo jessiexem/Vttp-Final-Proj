@@ -22,7 +22,6 @@ export class QuestionDisplayComponent implements OnInit {
   correctAnswer: number = 0;
   inCorrectAnswer: number = 0;
   progress: number = 0;
-  //isQuizCompleted : boolean = false;
   
   constructor(private quizSvc: QuizService, private localStorage: LocalStorageService) { }
 
@@ -71,12 +70,8 @@ export class QuestionDisplayComponent implements OnInit {
     this.startCounter();
   }
 
-  // previousQuestion() {
-  //   this.currentQuestion--;
-  // }
 
   nextQuestion() {
-    //alert(this.currentQuestion);
     this.currentQuestion++
     this.points -= 10
     this.resetCounter()
@@ -87,14 +82,12 @@ export class QuestionDisplayComponent implements OnInit {
     console.log(">>answer() current Qno:", currentQno, "optionIdx:", optionIdx)
 
     if(currentQno === this.quizList.length){
-      //this.isQuizCompleted = true;
       this.stopCounter();
     }
 
     console.log("is it correct?",this.quizList[currentQno-1].answerArray[optionIdx])
 
     if (this.quizList[currentQno-1].answerArray[optionIdx]) {
-    //if (this.quizList[currentQno-1].answerArray[optionIdx] == this.quizList[currentQno-1].answerArray[optionIdx]) {
       console.log("Correct!")
       this.points += 10;
       this.correctAnswer++;
@@ -126,16 +119,6 @@ export class QuestionDisplayComponent implements OnInit {
     this.progress = ((this.currentQuestion / this.quizList.length) * 100);
     return this.progress;
   }
-
-  // resetQuiz() {
-  //   this.resetCounter();
-  //   this.getAllQuestions();
-  //   this.points = 0;
-  //   this.counter = 60;
-  //   this.currentQuestion = 0;
-  //   this.progress = 0;
-
-  // }
 
   ngOnDestroy(): void {
     this.sub$.unsubscribe()
