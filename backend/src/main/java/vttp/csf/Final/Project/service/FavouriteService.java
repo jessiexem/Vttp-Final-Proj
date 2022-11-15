@@ -4,16 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vttp.csf.Final.Project.dto.FavouriteResponse;
 import vttp.csf.Final.Project.dto.PostResponse;
+import vttp.csf.Final.Project.exception.HomeworkNerdException;
 import vttp.csf.Final.Project.mapper.PostMapper;
 import vttp.csf.Final.Project.model.Favourite;
+import vttp.csf.Final.Project.model.NotificationEmail;
 import vttp.csf.Final.Project.model.Post;
 import vttp.csf.Final.Project.model.User;
 import vttp.csf.Final.Project.repository.FavouriteRepository;
+import vttp.csf.Final.Project.repository.PostRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class FavouriteService {
@@ -27,10 +29,28 @@ public class FavouriteService {
     @Autowired
     private PostMapper postMapper;
 
+    @Autowired
+    private PostRepository postRepo;
+
+    @Autowired
+    private MailContentBuilder mailContentBuilder;
+
+    @Autowired
+    private MailService mailSvc;
+
     public Integer addToFavourite(Long postId) {
         User user = authSvc.getCurrentUser();
         Integer recordId = favouriteRepo.addFavouriteByUser(postId, user.getUserId());
-        return recordId;
+
+        Optional<Post> optPost = postRepo.getPostById(postId);
+        if(optPost.isEmpty()) {
+            throw new HomeworkNerdException("Favourite Service: No such post with post id: "+ postId);
+        } else {
+            Post post = optPost.get();
+            String message = mailContentBuilder.build(user.getUsername() + " favourited your post: \n\""+ post.getPostName() + "\"");
+            sendCommentNotification(message, user);
+            return recordId;
+        }
     }
 
     public List<FavouriteResponse> getAllFavouritePostsByUser() {
@@ -59,5 +79,10 @@ public class FavouriteService {
     public boolean deleteFavByUser(Integer recordId) {
         boolean isDeleted = favouriteRepo.deleteFavouriteByUser(recordId);
         return isDeleted;
+    }
+
+    private void sendCommentNotification(String message, User user) {
+        mailSvc.sendMail(new NotificationEmail("SocialIT: "+user.getUsername()+" favourited your post!",
+                user.getEmail(), message));
     }
 }

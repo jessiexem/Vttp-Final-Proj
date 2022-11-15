@@ -62,13 +62,17 @@ public class CommentService {
                 throw new HomeworkNerdException("Unable to save comment");
             }
 
-            String message = mailContentBuilder.build(post.getUser().getUsername() + " posted a comment on your post: \n"+ comment.getText());
-            sendCommentNotification(message, post.getUser());
+            String message = mailContentBuilder.build(comment.getUser().getUsername() + " posted a comment on your post: \""
+                    + post.getPostName() + "\" : \n"
+                    + comment.getText());
+
+
+            sendCommentNotification(message, comment.getUser());
         }
      }
 
     private void sendCommentNotification(String message, User user) {
-        mailSvc.sendMail(new NotificationEmail(user.getUsername()+" commented on your post",
+        mailSvc.sendMail(new NotificationEmail("SocialIT: "+user.getUsername()+" commented on your post",
                 user.getEmail(), message));
     }
 
